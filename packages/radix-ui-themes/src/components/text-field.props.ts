@@ -1,6 +1,6 @@
-import { colorProp, radiusProp } from '../helpers';
+import type { PropDef } from '../helpers';
+import { colorProp, paddingPropDefs, paddingValues, radiusProp } from '../helpers';
 import { flexPropDefs } from './flex.props';
-import { PropDef } from '../helpers';
 
 const sizes = ['1', '2', '3'] as const;
 const variants = ['classic', 'surface', 'soft'] as const;
@@ -17,12 +17,21 @@ const textFieldPropDefs = {
   radius: typeof radiusProp;
 };
 
+// TODO: slot props type currently allows all padding props, which is weird
 const textFieldSlotPropDefs = {
   color: colorProp,
   gap: flexPropDefs.gap,
+  ...paddingPropDefs,
 } satisfies {
   color: typeof colorProp;
   gap: typeof flexPropDefs.gap;
+  p: PropDef<(typeof paddingValues)[number]>;
+  px: PropDef<(typeof paddingValues)[number]>;
+  py: PropDef<(typeof paddingValues)[number]>;
+  pt: PropDef<(typeof paddingValues)[number]>;
+  pr: PropDef<(typeof paddingValues)[number]>;
+  pb: PropDef<(typeof paddingValues)[number]>;
+  pl: PropDef<(typeof paddingValues)[number]>;
 };
 
 export { textFieldPropDefs, textFieldSlotPropDefs };

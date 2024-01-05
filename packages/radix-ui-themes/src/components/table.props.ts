@@ -1,4 +1,5 @@
 import type { PropDef } from '../helpers';
+import { paddingValues, paddingPropDefs } from '../helpers';
 
 const sizes = ['1', '2', '3'] as const;
 const variants = ['surface', 'ghost'] as const;
@@ -19,14 +20,23 @@ const tableRowPropDefs = {
   align: PropDef<(typeof rowAlign)[number]>;
 };
 
-const cellJustify = ['start', 'center', 'end'] as const;
+const justifyValues = ['start', 'center', 'end'] as const;
+const widthValues = ['auto', '100%', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 
 const tableCellPropDefs = {
-  justify: { type: 'enum', values: cellJustify, default: undefined, responsive: true },
-  width: { type: 'string | number', default: undefined },
+  justify: { type: 'enum', values: justifyValues, default: undefined, responsive: true },
+  width: { type: 'enum | string', values: widthValues, default: undefined, responsive: true },
+  ...paddingPropDefs,
 } satisfies {
-  justify: PropDef<(typeof cellJustify)[number]>;
-  width: PropDef<string | number>;
+  justify: PropDef<(typeof justifyValues)[number]>;
+  width: PropDef<(typeof widthValues)[number]>;
+  p: PropDef<(typeof paddingValues)[number]>;
+  px: PropDef<(typeof paddingValues)[number]>;
+  py: PropDef<(typeof paddingValues)[number]>;
+  pt: PropDef<(typeof paddingValues)[number]>;
+  pr: PropDef<(typeof paddingValues)[number]>;
+  pb: PropDef<(typeof paddingValues)[number]>;
+  pl: PropDef<(typeof paddingValues)[number]>;
 };
 
 export { tableRootPropDefs, tableRowPropDefs, tableCellPropDefs };

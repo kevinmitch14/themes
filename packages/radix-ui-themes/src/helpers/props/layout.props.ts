@@ -7,13 +7,13 @@ import type { PropDef, GetPropDefTypes } from './prop-def';
 const paddingValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 
 const paddingPropDefs = {
-  p: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  px: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  py: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  pt: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  pr: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  pb: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  pl: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
+  p: { type: 'enum | string', values: paddingValues, default: undefined, responsive: true },
+  px: { type: 'enum | string', values: paddingValues, default: undefined, responsive: true },
+  py: { type: 'enum | string', values: paddingValues, default: undefined, responsive: true },
+  pt: { type: 'enum | string', values: paddingValues, default: undefined, responsive: true },
+  pr: { type: 'enum | string', values: paddingValues, default: undefined, responsive: true },
+  pb: { type: 'enum | string', values: paddingValues, default: undefined, responsive: true },
+  pl: { type: 'enum | string', values: paddingValues, default: undefined, responsive: true },
 } satisfies {
   p: PropDef<(typeof paddingValues)[number]>;
   px: PropDef<(typeof paddingValues)[number]>;
@@ -40,39 +40,27 @@ function extractPaddingProps<T extends PaddingProps>(props: T) {
   return { p, px, py, pt, pr, pb, pl, rest };
 }
 
-function withPaddingProps(props: PaddingProps) {
-  return [
-    withBreakpoints(props.p, 'rt-r-p'),
-    withBreakpoints(props.px, 'rt-r-px'),
-    withBreakpoints(props.py, 'rt-r-py'),
-    withBreakpoints(props.pt, 'rt-r-pt'),
-    withBreakpoints(props.pr, 'rt-r-pr'),
-    withBreakpoints(props.pb, 'rt-r-pb'),
-    withBreakpoints(props.pl, 'rt-r-pl'),
-  ]
-    .filter(Boolean)
-    .join(' ');
-}
-
 const positionValues = ['static', 'relative', 'absolute', 'fixed', 'sticky'] as const;
-const positionEdgeValues = ['auto', '0', '50%', '100%'] as const;
 // prettier-ignore
-const widthHeightValues = ['auto', 'min-content', 'max-content', '100%', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
+const positionEdgeValues = ['auto', '100%', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-1', '-2', '-3', '-4', '-5', '-6', '-7', '-8', '-9'] as const;
+// prettier-ignore
+const widthHeightValues = ['auto', '100%', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 const flexShrinkValues = ['0', '1'] as const;
 const flexGrowValues = ['0', '1'] as const;
 
+// prettier-ignore
 const layoutPropDefs = {
   ...paddingPropDefs,
   position: { type: 'enum', values: positionValues, default: undefined, responsive: true },
-  inset: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  top: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  right: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  bottom: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  left: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  width: { type: 'enum', values: widthHeightValues, default: undefined, responsive: true },
-  height: { type: 'enum', values: widthHeightValues, default: undefined, responsive: true },
-  flexShrink: { type: 'enum', values: flexShrinkValues, default: undefined, responsive: true },
-  flexGrow: { type: 'enum', values: flexGrowValues, default: undefined, responsive: true },
+  inset: { type: 'enum | string', values: positionEdgeValues, default: undefined, responsive: true },
+  top: { type: 'enum | string', values: positionEdgeValues, default: undefined, responsive: true },
+  right: { type: 'enum | string', values: positionEdgeValues, default: undefined, responsive: true },
+  bottom: { type: 'enum | string', values: positionEdgeValues, default: undefined, responsive: true },
+  left: { type: 'enum | string', values: positionEdgeValues, default: undefined, responsive: true },
+  width: { type: 'enum | string', values: widthHeightValues, default: undefined, responsive: true },
+  height: { type: 'enum | string', values: widthHeightValues, default: undefined, responsive: true },
+  flexShrink: { type: 'enum | string', values: flexShrinkValues, default: undefined, responsive: true },
+  flexGrow: { type: 'enum | string', values: flexGrowValues, default: undefined, responsive: true },
   gridColumn: { type: 'string', default: undefined, responsive: true },
   gridColumnStart: { type: 'string', default: undefined, responsive: true },
   gridColumnEnd: { type: 'string', default: undefined, responsive: true },
@@ -157,20 +145,145 @@ function extractLayoutProps<T extends LayoutProps>(props: T) {
   };
 }
 
+function getPaddingStyles(props: PaddingProps) {
+  const [paddingClassNames, paddingCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-p',
+    customProperty: '--padding',
+    propValues: paddingValues,
+    value: props.p,
+  });
+
+  const [pxClassNames, pxCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-px',
+    customProperty: ['--padding-left', '--padding-right'],
+    propValues: paddingValues,
+    value: props.px,
+  });
+
+  const [pyClassNames, pyCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-py',
+    customProperty: ['--padding-top', '--padding-bottom'],
+    propValues: paddingValues,
+    value: props.py,
+  });
+
+  const [ptClassNames, ptCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-pt',
+    customProperty: '--padding-top',
+    propValues: paddingValues,
+    value: props.pt,
+  });
+
+  const [prClassNames, prCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-pr',
+    customProperty: '--padding-right',
+    propValues: paddingValues,
+    value: props.pr,
+  });
+
+  const [pbClassNames, pbCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-pb',
+    customProperty: '--padding-bottom',
+    propValues: paddingValues,
+    value: props.pb,
+  });
+
+  const [plClassNames, plCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-pl',
+    customProperty: '--padding-left',
+    propValues: paddingValues,
+    value: props.pl,
+  });
+
+  return [
+    classNames(
+      paddingClassNames,
+      pxClassNames,
+      pyClassNames,
+      ptClassNames,
+      prClassNames,
+      pbClassNames,
+      plClassNames
+    ),
+    mergeStyles(
+      paddingCustomProperties,
+      pxCustomProperties,
+      pyCustomProperties,
+      ptCustomProperties,
+      prCustomProperties,
+      pbCustomProperties,
+      plCustomProperties
+    ),
+  ] as const;
+}
+
 function getLayoutStyles(props: LayoutProps) {
-  const baseLayoutClassNames = classNames(
-    withPaddingProps(props),
-    withBreakpoints(props.position, 'rt-r-position'),
-    withBreakpoints(props.flexShrink ?? props.shrink, 'rt-r-fs'),
-    withBreakpoints(props.flexGrow ?? props.grow, 'rt-r-fg'),
-    withBreakpoints(props.width, 'rt-r-w'),
-    withBreakpoints(props.height, 'rt-r-h'),
-    withBreakpoints(props.inset, 'rt-r-inset'),
-    withBreakpoints(props.top, 'rt-r-top'),
-    withBreakpoints(props.bottom, 'rt-r-bottom'),
-    withBreakpoints(props.left, 'rt-r-left'),
-    withBreakpoints(props.right, 'rt-r-right')
-  );
+  const [paddingClassNames, paddingCustomProperties] = getPaddingStyles(props);
+
+  const [widthClassNames, widthCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-w',
+    customProperty: '--width',
+    propValues: layoutPropDefs.width.values,
+    value: props.width,
+  });
+
+  const [heightClassNames, heightCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-h',
+    customProperty: '--height',
+    propValues: layoutPropDefs.height.values,
+    value: props.height,
+  });
+
+  const positionClassNames = withBreakpoints(props.position, 'rt-r-position');
+
+  const [insetClassNames, insetCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-inset',
+    customProperty: '--inset',
+    propValues: layoutPropDefs.inset.values,
+    value: props.inset,
+  });
+
+  const [insetTopClassNames, insetTopCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-top',
+    customProperty: '--top',
+    propValues: layoutPropDefs.top.values,
+    value: props.top,
+  });
+
+  const [insetRightClassNames, insetRightCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-right',
+    customProperty: '--right',
+    propValues: layoutPropDefs.right.values,
+    value: props.right,
+  });
+
+  const [insetBottomClassNames, insetBottomCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-bottom',
+    customProperty: '--bottom',
+    propValues: layoutPropDefs.bottom.values,
+    value: props.bottom,
+  });
+
+  const [insetLeftClassNames, insetLeftCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-left',
+    customProperty: '--left',
+    propValues: layoutPropDefs.left.values,
+    value: props.left,
+  });
+
+  const [flexShrinkClassNames, flexShrinkCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-fs',
+    customProperty: '--flex-shrink',
+    propValues: layoutPropDefs.flexShrink.values,
+    value: props.flexShrink ?? props.shrink,
+  });
+
+  const [flexGrowClassNames, flexGrowCustomProperties] = getResponsiveStyles({
+    className: 'rt-r-fg',
+    customProperty: '--flex-grow',
+    propValues: layoutPropDefs.flexGrow.values,
+    value: props.flexGrow ?? props.grow,
+  });
 
   const [gridColumnClassNames, gridColumnCustomProperties] = getResponsiveStyles({
     className: 'rt-r-gc',
@@ -210,7 +323,17 @@ function getLayoutStyles(props: LayoutProps) {
 
   return [
     classNames(
-      baseLayoutClassNames,
+      positionClassNames,
+      paddingClassNames,
+      widthClassNames,
+      heightClassNames,
+      insetClassNames,
+      insetTopClassNames,
+      insetRightClassNames,
+      insetBottomClassNames,
+      insetLeftClassNames,
+      flexShrinkClassNames,
+      flexGrowClassNames,
       gridColumnClassNames,
       gridColumnStartClassNames,
       gridColumnEndClassNames,
@@ -219,6 +342,16 @@ function getLayoutStyles(props: LayoutProps) {
       gridRowEndClassNames
     ),
     mergeStyles(
+      paddingCustomProperties,
+      widthCustomProperties,
+      heightCustomProperties,
+      insetCustomProperties,
+      insetTopCustomProperties,
+      insetRightCustomProperties,
+      insetBottomCustomProperties,
+      insetLeftCustomProperties,
+      flexShrinkCustomProperties,
+      flexGrowCustomProperties,
       gridColumnCustomProperties,
       gridColumnStartCustomProperties,
       gridColumnEndCustomProperties,
@@ -230,9 +363,13 @@ function getLayoutStyles(props: LayoutProps) {
 }
 
 export {
+  // Padding props
   paddingPropDefs,
+  paddingValues,
   extractPaddingProps,
-  withPaddingProps,
+  getPaddingStyles,
+
+  // Layout props
   layoutPropDefs,
   extractLayoutProps,
   getLayoutStyles,
