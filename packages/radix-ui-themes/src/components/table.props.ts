@@ -1,5 +1,5 @@
 import type { PropDef } from '../helpers';
-import { paddingValues, paddingPropDefs } from '../helpers';
+import { paddingPropDefs } from '../helpers';
 
 const sizes = ['1', '2', '3'] as const;
 const variants = ['surface', 'ghost'] as const;
@@ -30,13 +30,6 @@ const tableCellPropDefs = {
 } satisfies {
   justify: PropDef<(typeof justifyValues)[number]>;
   width: PropDef<(typeof widthValues)[number]>;
-  p: PropDef<(typeof paddingValues)[number]>;
-  px: PropDef<(typeof paddingValues)[number]>;
-  py: PropDef<(typeof paddingValues)[number]>;
-  pt: PropDef<(typeof paddingValues)[number]>;
-  pr: PropDef<(typeof paddingValues)[number]>;
-  pb: PropDef<(typeof paddingValues)[number]>;
-  pl: PropDef<(typeof paddingValues)[number]>;
 };
 
 export { tableRootPropDefs, tableRowPropDefs, tableCellPropDefs };

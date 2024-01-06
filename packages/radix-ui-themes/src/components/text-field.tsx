@@ -96,7 +96,7 @@ const TextFieldSlot = React.forwardRef<TextFieldSlotElement, TextFieldSlotProps>
           withBreakpoints(context?.size, 'rt-r-size'),
           withBreakpoints(gap, 'rt-r-gap')
         )}
-        style={mergeStyles(style, paddingCustomProperties)}
+        style={mergeStyles(paddingCustomProperties, style)}
       />
     );
   }

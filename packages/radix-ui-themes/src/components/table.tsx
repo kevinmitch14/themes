@@ -132,7 +132,7 @@ const TableCellImpl = React.forwardRef<TableCellImplElement, TableCellImplProps>
           paddingClassNames,
           withBreakpoints(justify, 'rt-r-ta', { start: 'left', center: 'center', end: 'right' })
         )}
-        style={mergeStyles(style, paddingCustomProperties, widthCustomProperties)}
+        style={mergeStyles(paddingCustomProperties, widthCustomProperties, style)}
       />
     );
   }
