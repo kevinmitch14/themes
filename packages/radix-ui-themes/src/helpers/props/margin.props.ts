@@ -8,13 +8,13 @@ import type { PropDef, GetPropDefTypes } from './prop-def';
 const marginValues = ['auto', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-1', '-2', '-3', '-4', '-5', '-6', '-7', '-8', '-9'] as const;
 
 const marginPropDefs = {
-  m: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  mx: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  my: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  mt: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  mr: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  mb: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  ml: { type: 'enum', values: marginValues, default: undefined, responsive: true },
+  m: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
+  mx: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
+  my: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
+  mt: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
+  mr: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
+  mb: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
+  ml: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
 } satisfies {
   m: PropDef<(typeof marginValues)[number]>;
   mx: PropDef<(typeof marginValues)[number]>;
