@@ -53,7 +53,11 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>((props, 
       className={classNames(
         'rt-BaseButton',
         'rt-reset',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: baseButtonPropDefs.size.values,
+        }),
         `rt-variant-${variant}`,
         {
           'rt-high-contrast': highContrast,

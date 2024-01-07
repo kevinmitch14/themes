@@ -24,7 +24,11 @@ const Kbd = React.forwardRef<KbdElement, KbdProps>((props, forwardedRef) => {
       ref={forwardedRef}
       className={classNames(
         'rt-Kbd',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: kbdPropDefs.size.values,
+        }),
         marginClassNames,
         className
       )}

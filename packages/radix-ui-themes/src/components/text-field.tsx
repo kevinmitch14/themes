@@ -94,8 +94,16 @@ const TextFieldSlot = React.forwardRef<TextFieldSlotElement, TextFieldSlotProps>
         ref={forwardedRef}
         className={classNames(
           'rt-TextFieldSlot',
-          getResponsiveClassNames({ className: 'rt-r-size', value: context?.size }),
-          getResponsiveClassNames({ className: 'rt-r-gap', value: gap }),
+          getResponsiveClassNames({
+            className: 'rt-r-size',
+            value: context?.size,
+            propValues: textFieldSlotPropDefs.gap.values,
+          }),
+          getResponsiveClassNames({
+            className: 'rt-r-gap',
+            value: gap,
+            propValues: textFieldSlotPropDefs.gap.values,
+          }),
           paddingClassNames,
           className
         )}
@@ -135,7 +143,11 @@ const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputPro
           className={classNames(
             'rt-TextFieldInput',
             className,
-            getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+            getResponsiveClassNames({
+              className: 'rt-r-size',
+              value: size,
+              propValues: textFieldPropDefs.size.values,
+            }),
             `rt-variant-${variant}`
           )}
         />

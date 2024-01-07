@@ -49,7 +49,11 @@ const DialogContent = React.forwardRef<DialogContentElement, DialogContentProps>
               ref={forwardedRef}
               className={classNames(
                 'rt-DialogContent',
-                getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+                getResponsiveClassNames({
+                  className: 'rt-r-size',
+                  value: size,
+                  propValues: dialogContentPropDefs.size.values,
+                }),
                 className
               )}
             />

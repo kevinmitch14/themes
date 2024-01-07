@@ -38,7 +38,11 @@ const Spinner = React.forwardRef<SpinnerElement, SpinnerProps>((props, forwarded
       ref={forwardedRef}
       className={classNames(
         'rt-Spinner',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: spinnerPropDefs.size.values,
+        }),
         marginClassNames,
         className
       )}

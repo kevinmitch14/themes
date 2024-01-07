@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { getResponsiveStyles } from '../breakpoints';
+import { getResponsiveStyles } from '../responsive';
 import { mergeStyles } from '../merge-styles';
 
 import type { PropDef, GetPropDefTypes } from './prop-def';

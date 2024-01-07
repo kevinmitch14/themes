@@ -43,7 +43,11 @@ const Progress = React.forwardRef<ProgressElement, ProgressProps>((props, forwar
       ref={forwardedRef}
       className={classNames(
         'rt-ProgressRoot',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: progressPropDefs.size.values,
+        }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
         marginClassNames,

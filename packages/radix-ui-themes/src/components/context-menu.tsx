@@ -68,7 +68,11 @@ const ContextMenuContent = React.forwardRef<ContextMenuContentElement, ContextMe
               'rt-PopperContent',
               'rt-BaseMenuContent',
               'rt-ContextMenuContent',
-              getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+              getResponsiveClassNames({
+                className: 'rt-r-size',
+                value: size,
+                propValues: contextMenuContentPropDefs.size.values,
+              }),
               `rt-variant-${variant}`,
               { 'rt-high-contrast': highContrast },
               className
@@ -291,7 +295,11 @@ const ContextMenuSubContent = React.forwardRef<
             'rt-BaseMenuSubContent',
             'rt-ContextMenuContent',
             'rt-ContextMenuSubContent',
-            getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+            getResponsiveClassNames({
+              className: 'rt-r-size',
+              value: size,
+              propValues: contextMenuContentPropDefs.size.values,
+            }),
             `rt-variant-${variant}`,
             { 'rt-high-contrast': highContrast },
             className

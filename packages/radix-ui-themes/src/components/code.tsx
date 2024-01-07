@@ -33,10 +33,18 @@ const Code = React.forwardRef<CodeElement, CodeProps>((props, forwardedRef) => {
       ref={forwardedRef}
       className={classNames(
         'rt-Code',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: codePropDefs.size.values,
+        }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
-        getResponsiveClassNames({ className: 'rt-r-weight', value: weight }),
+        getResponsiveClassNames({
+          className: 'rt-r-weight',
+          value: weight,
+          propValues: codePropDefs.weight.values,
+        }),
         marginClassNames,
         className
       )}

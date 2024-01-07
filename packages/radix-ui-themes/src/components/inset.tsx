@@ -36,15 +36,58 @@ const Inset = React.forwardRef<InsetElement, InsetProps>((props, forwardedRef) =
       ref={forwardedRef}
       className={classNames(
         'rt-Inset',
-        getResponsiveClassNames({ className: 'rt-r-side', value: side }),
-        getResponsiveClassNames({ className: 'rt-r-clip', value: clip }),
-        getResponsiveClassNames({ className: 'rt-r-p', value: p, parseValue: parsePaddingValue }),
-        getResponsiveClassNames({ className: 'rt-r-px', value: px, parseValue: parsePaddingValue }),
-        getResponsiveClassNames({ className: 'rt-r-py', value: py, parseValue: parsePaddingValue }),
-        getResponsiveClassNames({ className: 'rt-r-pt', value: pt, parseValue: parsePaddingValue }),
-        getResponsiveClassNames({ className: 'rt-r-pr', value: pr, parseValue: parsePaddingValue }),
-        getResponsiveClassNames({ className: 'rt-r-pb', value: pb, parseValue: parsePaddingValue }),
-        getResponsiveClassNames({ className: 'rt-r-pl', value: pl, parseValue: parsePaddingValue }),
+        getResponsiveClassNames({
+          className: 'rt-r-side',
+          value: side,
+          propValues: insetPropDefs.side.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-clip',
+          value: clip,
+          propValues: insetPropDefs.clip.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-p',
+          value: p,
+          parseValue: parsePaddingValue,
+          propValues: insetPropDefs.p.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-px',
+          value: px,
+          parseValue: parsePaddingValue,
+          propValues: insetPropDefs.px.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-py',
+          value: py,
+          parseValue: parsePaddingValue,
+          propValues: insetPropDefs.py.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-pt',
+          value: pt,
+          parseValue: parsePaddingValue,
+          propValues: insetPropDefs.pt.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-pr',
+          value: pr,
+          parseValue: parsePaddingValue,
+          propValues: insetPropDefs.pr.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-pb',
+          value: pb,
+          parseValue: parsePaddingValue,
+          propValues: insetPropDefs.pb.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-pl',
+          value: pl,
+          parseValue: parsePaddingValue,
+          propValues: insetPropDefs.pl.values,
+        }),
         marginClassNames,
         className
       )}

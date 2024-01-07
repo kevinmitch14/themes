@@ -40,7 +40,11 @@ const RadioGroupRoot = React.forwardRef<RadioGroupElement, RadioGroupRootProps>(
         className={classNames(
           'rt-RadioGroupRoot',
           marginClassNames,
-          getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+          getResponsiveClassNames({
+            className: 'rt-r-size',
+            value: size,
+            propValues: radioGroupPropDefs.size.values,
+          }),
           `rt-variant-${variant}`,
           { 'rt-high-contrast': highContrast },
           className

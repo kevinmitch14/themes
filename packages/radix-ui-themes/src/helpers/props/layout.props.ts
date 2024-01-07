@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { getResponsiveClassNames, getResponsiveStyles } from '../breakpoints';
+import { getResponsiveClassNames, getResponsiveStyles } from '../responsive';
 import { mergeStyles } from '../merge-styles';
 import { extractPaddingProps, getPaddingStyles, paddingPropDefs } from './padding.props';
 import type { PropDef, GetPropDefTypes } from './prop-def';
@@ -122,6 +122,7 @@ function getLayoutStyles(props: LayoutProps) {
   const positionClassNames = getResponsiveClassNames({
     className: 'rt-r-position',
     value: props.position,
+    propValues: layoutPropDefs.position.values,
   });
 
   const [insetClassNames, insetCustomProperties] = getResponsiveStyles({
@@ -177,36 +178,42 @@ function getLayoutStyles(props: LayoutProps) {
     className: 'rt-r-gc',
     customProperty: '--grid-column',
     value: props.gridColumn,
+    propValues: [],
   });
 
   const [gridColumnStartClassNames, gridColumnStartCustomProperties] = getResponsiveStyles({
     className: 'rt-r-gcs',
     customProperty: '--grid-column-start',
     value: props.gridColumnStart,
+    propValues: [],
   });
 
   const [gridColumnEndClassNames, gridColumnEndCustomProperties] = getResponsiveStyles({
     className: 'rt-r-gce',
     customProperty: '--grid-column-end',
     value: props.gridColumnEnd,
+    propValues: [],
   });
 
   const [gridRowClassNames, gridRowCustomProperties] = getResponsiveStyles({
     className: 'rt-r-gr',
     customProperty: '--grid-row',
     value: props.gridRow,
+    propValues: [],
   });
 
   const [gridRowStartClassNames, gridRowStartCustomProperties] = getResponsiveStyles({
     className: 'rt-r-grs',
     customProperty: '--grid-row-start',
     value: props.gridRowStart,
+    propValues: [],
   });
 
   const [gridRowEndClassNames, gridRowEndCustomProperties] = getResponsiveStyles({
     className: 'rt-r-gre',
     customProperty: '--grid-row-end',
     value: props.gridRowEnd,
+    propValues: [],
   });
 
   return [

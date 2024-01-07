@@ -43,7 +43,11 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>((props, forwardedRef
       data-radius={radius}
       className={classNames(
         'rt-AvatarRoot',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: avatarPropDefs.size.values,
+        }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
         marginClassNames,

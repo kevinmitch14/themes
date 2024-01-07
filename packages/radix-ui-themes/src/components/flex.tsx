@@ -44,15 +44,39 @@ const Flex = React.forwardRef<FlexElement, FlexProps>((props, forwardedRef) => {
     <Comp
       {...flexProps}
       ref={forwardedRef}
-      // prettier-ignore
       className={classNames(
         'rt-Flex',
-        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
-        getResponsiveClassNames({ className: 'rt-r-fd', value: direction }),
-        getResponsiveClassNames({ className: 'rt-r-fw', value: wrap }),
-        getResponsiveClassNames({ className: 'rt-r-gap', value: gap }),
-        getResponsiveClassNames({ className: 'rt-r-ai', value: align }),
-        getResponsiveClassNames({ className: 'rt-r-jc', value: justify, parseValue: parseJustifyValue }),
+        getResponsiveClassNames({
+          className: 'rt-r-display',
+          value: display,
+          propValues: flexPropDefs.display.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-fd',
+          value: direction,
+          propValues: flexPropDefs.direction.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-fw',
+          value: wrap,
+          propValues: flexPropDefs.wrap.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-gap',
+          value: gap,
+          propValues: flexPropDefs.gap.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-ai',
+          value: align,
+          propValues: flexPropDefs.align.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-jc',
+          value: justify,
+          propValues: flexPropDefs.justify.values,
+          parseValue: parseJustifyValue,
+        }),
         layoutClassNames,
         marginClassNames,
         className

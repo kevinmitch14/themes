@@ -36,7 +36,11 @@ const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
       className={classNames(
         'rt-Card',
         'rt-reset',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: cardPropDefs.size.values,
+        }),
         `rt-variant-${variant}`,
         marginClassNames,
         className

@@ -36,7 +36,11 @@ const TableRoot = React.forwardRef<TableRootElement, TableRootProps>((props, for
       className={classNames(
         'rt-TableRoot',
         `rt-variant-${variant}`,
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: tableRootPropDefs.size.values,
+        }),
         marginClassNames,
         className
       )}
@@ -82,10 +86,14 @@ const TableRow = React.forwardRef<TableRowElement, TableRowProps>((props, forwar
     <tr
       {...rowProps}
       ref={forwardedRef}
-      // prettier-ignore
       className={classNames(
         'rt-TableRow',
-        getResponsiveClassNames({ className: 'rt-r-va', value: align, parseValue: parseAlignValue }),
+        getResponsiveClassNames({
+          className: 'rt-r-va',
+          value: align,
+          parseValue: parseAlignValue,
+          propValues: tableRowPropDefs.align.values,
+        }),
         className
       )}
     />
@@ -133,10 +141,14 @@ const TableCellImpl = React.forwardRef<TableCellImplElement, TableCellImplProps>
       <Tag
         {...cellProps}
         ref={forwardedRef}
-        // prettier-ignore
         className={classNames(
           'rt-TableCell',
-          getResponsiveClassNames({ className: 'rt-r-va', value: justify, parseValue: parseJustifyValue }),
+          getResponsiveClassNames({
+            className: 'rt-r-va',
+            value: justify,
+            parseValue: parseJustifyValue,
+            propValues: tableCellPropDefs.justify.values,
+          }),
           widthClassNames,
           paddingClassNames,
           className

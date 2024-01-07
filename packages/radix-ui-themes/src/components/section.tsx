@@ -37,8 +37,16 @@ const Section = React.forwardRef<SectionElement, SectionProps>((props, forwarded
       ref={forwardedRef}
       className={classNames(
         'rt-Section',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
-        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: sectionPropDefs.size.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-display',
+          value: display,
+          propValues: sectionPropDefs.display.values,
+        }),
         layoutClassNames,
         marginClassNames,
         className

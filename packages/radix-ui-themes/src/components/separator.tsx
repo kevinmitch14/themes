@@ -36,7 +36,11 @@ const Separator = React.forwardRef<SeparatorElement, SeparatorProps>((props, for
       ref={forwardedRef}
       className={classNames(
         'rt-Separator',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: separatorPropDefs.size.values,
+        }),
         marginClassNames,
         className
       )}

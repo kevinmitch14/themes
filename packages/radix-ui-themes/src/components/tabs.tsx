@@ -45,7 +45,11 @@ const TabsList = React.forwardRef<TabsListElement, TabsListProps>((props, forwar
       ref={forwardedRef}
       className={classNames(
         'rt-TabsList',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: tabsListPropDefs.size.values,
+        }),
         className
       )}
     />

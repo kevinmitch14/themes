@@ -51,10 +51,26 @@ const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
       ref={forwardedRef}
       className={classNames(
         'rt-Text',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
-        getResponsiveClassNames({ className: 'rt-r-weight', value: weight }),
-        getResponsiveClassNames({ className: 'rt-r-ta', value: align }),
-        getResponsiveClassNames({ className: 'rt-r-lt', value: trim }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: textPropDefs.size.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-weight',
+          value: weight,
+          propValues: textPropDefs.weight.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-ta',
+          value: align,
+          propValues: textPropDefs.align.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-lt',
+          value: trim,
+          propValues: textPropDefs.trim.values,
+        }),
         { 'rt-high-contrast': highContrast },
         marginClassNames,
         className

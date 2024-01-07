@@ -4,41 +4,40 @@ import type { StringOrValue } from './string-or-value';
 type Breakpoints = 'initial' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type Responsive<T> = T | Partial<Record<Breakpoints, T>>;
 
-function getResponsiveStyles({
-  allowArbitraryValues = true,
-  className,
-  customProperty,
-  ...args
-}: GetResponsiveCustomPropertiesOptions & GetResponsiveClassNamesOptions) {
+interface GetResponsiveStylesOptions {
+  className: string;
+  customProperty: `--${string}` | `--${string}`[];
+  value: Responsive<StringOrValue<string>> | Responsive<string> | undefined;
+  propValues: string[] | readonly string[];
+  parseValue?: (value: string) => string | undefined;
+}
+
+function getResponsiveStyles({ className, customProperty, ...args }: GetResponsiveStylesOptions) {
   const classNames = getResponsiveClassNames({
-    allowArbitraryValues,
+    allowArbitraryValues: true,
     className,
     ...args,
   });
 
-  if (allowArbitraryValues) {
-    const customProperties = getResponsiveCustomProperties({ customProperty, ...args });
-    return [classNames, customProperties] as const;
-  } else {
-    return [classNames, undefined] as const;
-  }
+  const customProperties = getResponsiveCustomProperties({ customProperty, ...args });
+  return [classNames, customProperties] as const;
 }
 
 interface GetResponsiveClassNamesOptions {
   allowArbitraryValues?: boolean;
+  className: string;
   value: Responsive<StringOrValue<string>> | Responsive<string> | undefined;
-  className?: string;
-  propValues?: string[] | readonly string[];
+  propValues: string[] | readonly string[];
   parseValue?: (value: string) => string | undefined;
 }
 
 function getResponsiveClassNames({
-  allowArbitraryValues = false,
+  allowArbitraryValues,
   value,
-  className = '',
-  propValues = [],
+  className,
+  propValues,
   parseValue = (value) => value,
-}: GetResponsiveClassNamesOptions): string {
+}: GetResponsiveClassNamesOptions): string | undefined {
   const classNames: string[] = [];
 
   if (!value) {
@@ -52,7 +51,7 @@ function getResponsiveClassNames({
       const value = object[bp];
 
       if (value !== undefined) {
-        if (propValues.includes(value) || !allowArbitraryValues) {
+        if (propValues.includes(value)) {
           const baseClassName = getBaseClassName(className, value, parseValue);
           const bpClassName = bp === 'initial' ? baseClassName : `${bp}:${baseClassName}`;
           classNames.push(bpClassName);
@@ -66,11 +65,13 @@ function getResponsiveClassNames({
     return classNames.join(' ');
   }
 
-  if (!propValues.includes(value) && allowArbitraryValues) {
-    return className;
+  if (propValues.includes(value)) {
+    return getBaseClassName(className, value, parseValue);
   }
 
-  return getBaseClassName(className, value, parseValue);
+  if (allowArbitraryValues) {
+    return className;
+  }
 }
 
 function getBaseClassName(
@@ -87,16 +88,16 @@ function getBaseClassName(
 }
 
 interface GetResponsiveCustomPropertiesOptions {
-  value: Responsive<StringOrValue<string>> | Responsive<string> | undefined;
   customProperty: `--${string}` | `--${string}`[];
-  propValues?: string[] | readonly string[];
+  value: Responsive<StringOrValue<string>> | Responsive<string> | undefined;
+  propValues: string[] | readonly string[];
   parseValue?: (value: string) => string | undefined;
 }
 
 function getResponsiveCustomProperties({
-  value,
   customProperty,
-  propValues = [],
+  value,
+  propValues,
   parseValue = (value) => value,
 }: GetResponsiveCustomPropertiesOptions) {
   let styles: Record<string, string | undefined> = {};
@@ -110,6 +111,7 @@ function getResponsiveCustomProperties({
     styles = Object.fromEntries(customProperties.map((prop) => [prop, value]));
   }
 
+  // TODO make sure we are not iterating over keys that aren't breakpoints
   if (isBreakpointsObject(value)) {
     const object = value;
 
@@ -144,16 +146,11 @@ function getResponsiveCustomProperties({
   return styles;
 }
 
-function isBreakpointsObject<V extends string>(
-  obj: Responsive<V | Omit<string, V>> | undefined
+function isBreakpointsObject<Value extends string>(
+  obj: Responsive<Value | Omit<string, Value>> | undefined
 ): obj is Record<Breakpoints, string> {
   return typeof obj === 'object';
 }
 
-export {
-  isBreakpointsObject,
-  getResponsiveStyles,
-  getResponsiveCustomProperties,
-  getResponsiveClassNames,
-};
+export { getResponsiveStyles, getResponsiveCustomProperties, getResponsiveClassNames };
 export type { Breakpoints, Responsive, StringOrValue };

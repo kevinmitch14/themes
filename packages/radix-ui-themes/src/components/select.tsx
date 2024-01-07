@@ -68,7 +68,11 @@ const SelectTrigger = React.forwardRef<SelectTriggerElement, SelectTriggerProps>
           className={classNames(
             'rt-SelectTrigger',
             'rt-reset',
-            getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+            getResponsiveClassNames({
+              className: 'rt-r-size',
+              value: size,
+              propValues: selectRootPropDefs.size.values,
+            }),
             `rt-variant-${variant}`,
             marginClassNames,
             className
@@ -120,7 +124,11 @@ const SelectContent = React.forwardRef<SelectContentElement, SelectContentProps>
             className={classNames(
               { 'rt-PopperContent': contentProps.position === 'popper' },
               'rt-SelectContent',
-              getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+              getResponsiveClassNames({
+                className: 'rt-r-size',
+                value: size,
+                propValues: selectRootPropDefs.size.values,
+              }),
               `rt-variant-${variant}`,
               { 'rt-high-contrast': highContrast },
               className

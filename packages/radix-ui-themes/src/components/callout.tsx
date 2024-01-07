@@ -50,7 +50,11 @@ const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
         {...rootProps}
         className={classNames(
           'rt-CalloutRoot',
-          getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+          getResponsiveClassNames({
+            className: 'rt-r-size',
+            value: size,
+            propValues: calloutRootPropDefs.size.values,
+          }),
           `rt-variant-${variant}`,
           { 'rt-high-contrast': highContrast },
           marginClassNames,

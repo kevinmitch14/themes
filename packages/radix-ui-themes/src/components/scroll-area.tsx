@@ -54,7 +54,11 @@ const ScrollArea = React.forwardRef<ScrollAreaElement, ScrollAreaProps>((props, 
           orientation="horizontal"
           className={classNames(
             'rt-ScrollAreaScrollbar',
-            getResponsiveClassNames({ className: 'rt-r-size', value: size })
+            getResponsiveClassNames({
+              className: 'rt-r-size',
+              value: size,
+              propValues: scrollAreaPropDefs.size.values,
+            })
           )}
         >
           <ScrollAreaPrimitive.Thumb className="rt-ScrollAreaThumb" />
@@ -67,7 +71,11 @@ const ScrollArea = React.forwardRef<ScrollAreaElement, ScrollAreaProps>((props, 
           orientation="vertical"
           className={classNames(
             'rt-ScrollAreaScrollbar',
-            getResponsiveClassNames({ className: 'rt-r-size', value: size })
+            getResponsiveClassNames({
+              className: 'rt-r-size',
+              value: size,
+              propValues: scrollAreaPropDefs.size.values,
+            })
           )}
         >
           <ScrollAreaPrimitive.Thumb className="rt-ScrollAreaThumb" />

@@ -52,7 +52,11 @@ const AlertDialogContent = React.forwardRef<AlertDialogContentElement, AlertDial
               className={classNames(
                 'rt-AlertDialogContent',
                 'rt-DialogContent',
-                getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+                getResponsiveClassNames({
+                  className: 'rt-r-size',
+                  value: size,
+                  propValues: alertDialogContentPropDefs.size.values,
+                }),
                 className
               )}
             />

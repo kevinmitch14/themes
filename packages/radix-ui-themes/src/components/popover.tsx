@@ -51,7 +51,11 @@ const PopoverContent = React.forwardRef<PopoverContentElement, PopoverContentPro
             className={classNames(
               'rt-PopperContent',
               'rt-PopoverContent',
-              getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+              getResponsiveClassNames({
+                className: 'rt-r-size',
+                value: size,
+                propValues: popoverContentPropDefs.size.values,
+              }),
               className
             )}
           />

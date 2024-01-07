@@ -34,7 +34,11 @@ const Badge = React.forwardRef<BadgeElement, BadgeProps>((props, forwardedRef) =
       ref={forwardedRef}
       className={classNames(
         'rt-Badge',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: badgePropDefs.size.values,
+        }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
         marginClassNames,

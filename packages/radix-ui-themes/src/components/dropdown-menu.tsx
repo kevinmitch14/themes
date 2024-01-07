@@ -69,7 +69,11 @@ const DropdownMenuContent = React.forwardRef<DropdownMenuContentElement, Dropdow
               'rt-PopperContent',
               'rt-BaseMenuContent',
               'rt-DropdownMenuContent',
-              getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+              getResponsiveClassNames({
+                className: 'rt-r-size',
+                value: size,
+                propValues: dropdownMenuContentPropDefs.size.values,
+              }),
               `rt-variant-${variant}`,
               { 'rt-high-contrast': highContrast },
               className
@@ -292,7 +296,11 @@ const DropdownMenuSubContent = React.forwardRef<
             'rt-BaseMenuSubContent',
             'rt-DropdownMenuContent',
             'rt-DropdownMenuSubContent',
-            getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+            getResponsiveClassNames({
+              className: 'rt-r-size',
+              value: size,
+              propValues: dropdownMenuContentPropDefs.size.values,
+            }),
             `rt-variant-${variant}`,
             { 'rt-high-contrast': highContrast },
             className

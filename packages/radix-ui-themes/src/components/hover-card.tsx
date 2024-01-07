@@ -59,7 +59,11 @@ const HoverCardContent = React.forwardRef<HoverCardContentElement, HoverCardCont
             className={classNames(
               'rt-PopperContent',
               'rt-HoverCardContent',
-              getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+              getResponsiveClassNames({
+                className: 'rt-r-size',
+                value: size,
+                propValues: hoverCardContentPropDefs.size.values,
+              }),
               className
             )}
           />

@@ -65,18 +65,46 @@ const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
     <Comp
       {...gridProps}
       ref={forwardedRef}
-      // prettier-ignore
       className={classNames(
         'rt-Grid',
-        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
+        getResponsiveClassNames({
+          className: 'rt-r-display',
+          value: display,
+          propValues: gridPropDefs.display.values,
+        }),
         columnsClassNames,
         rowsClassNames,
-        getResponsiveClassNames({ className: 'rt-r-gaf', value: flow }),
-        getResponsiveClassNames({ className: 'rt-r-gap', value: gap }),
-        getResponsiveClassNames({ className: 'rt-r-cg', value: gapX }),
-        getResponsiveClassNames({ className: 'rt-r-rg', value: gapY }),
-        getResponsiveClassNames({ className: 'rt-r-ai', value: align }),
-        getResponsiveClassNames({ className: 'rt-r-jc', value: justify, parseValue: parseJustifyValue }),
+        getResponsiveClassNames({
+          className: 'rt-r-gaf',
+          value: flow,
+          propValues: gridPropDefs.flow.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-gap',
+          value: gap,
+          propValues: gridPropDefs.gap.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-cg',
+          value: gapX,
+          propValues: gridPropDefs.gapX.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-rg',
+          value: gapY,
+          propValues: gridPropDefs.gapY.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-ai',
+          value: align,
+          propValues: gridPropDefs.align.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-jc',
+          value: justify,
+          propValues: gridPropDefs.justify.values,
+          parseValue: parseJustifyValue,
+        }),
         layoutClassNames,
         marginClassNames,
         className

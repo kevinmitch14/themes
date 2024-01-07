@@ -49,10 +49,26 @@ const Heading = React.forwardRef<HeadingElement, HeadingProps>((props, forwarded
       ref={forwardedRef}
       className={classNames(
         'rt-Heading',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
-        getResponsiveClassNames({ className: 'rt-r-weight', value: weight }),
-        getResponsiveClassNames({ className: 'rt-r-ta', value: align }),
-        getResponsiveClassNames({ className: 'rt-r-lt', value: trim }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: headingPropDefs.size.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-weight',
+          value: weight,
+          propValues: headingPropDefs.weight.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-ta',
+          value: align,
+          propValues: headingPropDefs.align.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-lt',
+          value: trim,
+          propValues: headingPropDefs.trim.values,
+        }),
         { 'rt-high-contrast': highContrast },
         marginClassNames,
         className

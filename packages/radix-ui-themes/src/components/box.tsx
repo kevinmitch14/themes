@@ -41,7 +41,11 @@ const Box = React.forwardRef<BoxElement, BoxProps>((props, forwardedRef) => {
       ref={forwardedRef}
       className={classNames(
         'rt-Box',
-        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
+        getResponsiveClassNames({
+          className: 'rt-r-display',
+          value: display,
+          propValues: boxPropDefs.display.values,
+        }),
         layoutClassNames,
         marginClassNames,
         className

@@ -41,7 +41,11 @@ const Slider = React.forwardRef<SliderElement, SliderProps>((props, forwardedRef
       {...sliderProps}
       className={classNames(
         'rt-SliderRoot',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: sliderPropDefs.size.values,
+        }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
         marginClassNames,

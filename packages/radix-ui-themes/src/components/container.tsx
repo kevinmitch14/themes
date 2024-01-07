@@ -38,8 +38,16 @@ const Container = React.forwardRef<ContainerElement, ContainerProps>((props, for
       ref={forwardedRef}
       className={classNames(
         'rt-Container',
-        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-display',
+          value: display,
+          propValues: containerPropDefs.display.values,
+        }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: containerPropDefs.size.values,
+        }),
         layoutClassNames,
         marginClassNames,
         className

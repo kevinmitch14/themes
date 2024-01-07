@@ -32,7 +32,11 @@ const TextArea = React.forwardRef<TextAreaElement, TextAreaProps>((props, forwar
       data-accent-color={color}
       className={classNames(
         'rt-TextAreaRoot',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: textAreaPropDefs.size.values,
+        }),
         `rt-variant-${variant}`,
         marginClassNames,
         className

@@ -36,7 +36,11 @@ const Checkbox = React.forwardRef<CheckboxElement, CheckboxProps>((props, forwar
     <span
       className={classNames(
         'rt-CheckboxRoot',
-        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({
+          className: 'rt-r-size',
+          value: size,
+          propValues: checkboxPropDefs.size.values,
+        }),
         marginClassNames,
         className
       )}
