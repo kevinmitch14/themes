@@ -6,10 +6,10 @@ import {
   extractLayoutProps,
   extractMarginProps,
   getLayoutStyles,
+  getMarginStyles,
+  getResponsiveClassNames,
   getResponsiveStyles,
   mergeStyles,
-  withBreakpoints,
-  withMarginProps,
 } from '../helpers';
 
 import { MarginProps, LayoutProps, GetPropDefTypes } from '../helpers';
@@ -26,8 +26,11 @@ interface GridProps
 const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
+  const [layoutClassNames, layoutCustomProperties] = getLayoutStyles(layoutProps);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     className,
+    style,
     asChild,
     display = gridPropDefs.display.default,
     columns = gridPropDefs.columns.default,
@@ -38,12 +41,9 @@ const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
     gap = gridPropDefs.gap.default,
     gapX = gridPropDefs.gapX.default,
     gapY = gridPropDefs.gapY.default,
-    style,
     ...gridProps
   } = layoutRest;
   const Comp = asChild ? Slot : 'div';
-
-  const [layoutClassNames, layoutCustomProperties] = getLayoutStyles(layoutProps);
 
   const [columnsClassNames, columnsCustomProperties] = getResponsiveStyles({
     className: 'rt-r-gtc',
@@ -65,25 +65,27 @@ const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
     <Comp
       {...gridProps}
       ref={forwardedRef}
+      // prettier-ignore
       className={classNames(
         'rt-Grid',
-        className,
-        withBreakpoints(display, 'rt-r-display'),
-        withBreakpoints(flow, 'rt-r-gaf'),
-        withBreakpoints(align, 'rt-r-ai'),
-        withBreakpoints(justify, 'rt-r-jc', { between: 'space-between' }),
-        withBreakpoints(gap, 'rt-r-gap'),
-        withBreakpoints(gapX, 'rt-r-cg'),
-        withBreakpoints(gapY, 'rt-r-rg'),
-        withMarginProps(marginProps),
-        layoutClassNames,
+        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
         columnsClassNames,
-        rowsClassNames
+        rowsClassNames,
+        getResponsiveClassNames({ className: 'rt-r-gaf', value: flow }),
+        getResponsiveClassNames({ className: 'rt-r-gap', value: gap }),
+        getResponsiveClassNames({ className: 'rt-r-cg', value: gapX }),
+        getResponsiveClassNames({ className: 'rt-r-rg', value: gapY }),
+        getResponsiveClassNames({ className: 'rt-r-ai', value: align }),
+        getResponsiveClassNames({ className: 'rt-r-jc', value: justify, parseValue: parseJustifyValue }),
+        layoutClassNames,
+        marginClassNames,
+        className
       )}
       style={mergeStyles(
-        layoutCustomProperties,
         columnsCustomProperties,
         rowsCustomProperties,
+        layoutCustomProperties,
+        marginCustomProperties,
         style
       )}
     />
@@ -91,8 +93,12 @@ const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
 });
 Grid.displayName = 'Grid';
 
-function parseGridValue(value: string | undefined) {
+function parseGridValue(value: string) {
   return value?.match(/^\d+$/) ? `repeat(${value}, minmax(0, 1fr))` : value;
+}
+
+function parseJustifyValue(value: string) {
+  return value === 'between' ? 'space-between' : value;
 }
 
 export { Grid };

@@ -4,7 +4,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { popoverContentPropDefs } from './popover.props';
-import { withBreakpoints } from '../helpers';
+import { getResponsiveClassNames } from '../helpers';
 import { Theme } from '../theme';
 
 import type { GetPropDefTypes } from '../helpers';
@@ -51,8 +51,8 @@ const PopoverContent = React.forwardRef<PopoverContentElement, PopoverContentPro
             className={classNames(
               'rt-PopperContent',
               'rt-PopoverContent',
-              className,
-              withBreakpoints(size, 'rt-r-size')
+              getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+              className
             )}
           />
         </Theme>

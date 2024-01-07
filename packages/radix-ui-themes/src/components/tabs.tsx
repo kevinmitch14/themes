@@ -4,7 +4,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { tabsListPropDefs } from './tabs.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type { MarginProps, GetPropDefTypes } from '../helpers';
 
@@ -14,12 +19,14 @@ interface TabsRootProps
     MarginProps {}
 const TabsRoot = React.forwardRef<TabsRootElement, TabsRootProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, ...rootProps } = marginRest;
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
+  const { className, style, ...rootProps } = marginRest;
   return (
     <TabsPrimitive.Root
       {...rootProps}
       ref={forwardedRef}
-      className={classNames('rt-TabsRoot', className, withMarginProps(marginProps))}
+      className={classNames('rt-TabsRoot', marginClassNames, className)}
+      style={mergeStyles(marginCustomProperties, style)}
     />
   );
 });
@@ -36,7 +43,11 @@ const TabsList = React.forwardRef<TabsListElement, TabsListProps>((props, forwar
     <TabsPrimitive.List
       {...listProps}
       ref={forwardedRef}
-      className={classNames('rt-TabsList', className, withBreakpoints(size, 'rt-r-size'))}
+      className={classNames(
+        'rt-TabsList',
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        className
+      )}
     />
   );
 });
@@ -51,7 +62,7 @@ const TabsTrigger = React.forwardRef<TabsTriggerElement, TabsTriggerProps>(
       <TabsPrimitive.Trigger
         {...triggerProps}
         ref={forwardedRef}
-        className={classNames('rt-reset', 'rt-TabsTrigger', className)}
+        className={classNames('rt-TabsTrigger', 'rt-reset', className)}
       >
         <span className="rt-TabsTriggerInner">{children}</span>
         <span className="rt-TabsTriggerInnerHidden">{children}</span>

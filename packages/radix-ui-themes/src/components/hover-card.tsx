@@ -4,7 +4,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { hoverCardContentPropDefs } from './hover-card.props';
-import { withBreakpoints } from '../helpers';
+import { getResponsiveClassNames } from '../helpers';
 import { Theme } from '../theme';
 
 import type { GetPropDefTypes } from '../helpers';
@@ -59,8 +59,8 @@ const HoverCardContent = React.forwardRef<HoverCardContentElement, HoverCardCont
             className={classNames(
               'rt-PopperContent',
               'rt-HoverCardContent',
-              className,
-              withBreakpoints(size, 'rt-r-size')
+              getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+              className
             )}
           />
         </Theme>

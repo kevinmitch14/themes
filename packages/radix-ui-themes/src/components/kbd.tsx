@@ -1,7 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { kbdPropDefs } from './kbd.props';
-import { extractMarginProps, withMarginProps, GetPropDefTypes, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  GetPropDefTypes,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type { MarginProps } from '../helpers';
 
@@ -10,17 +16,19 @@ type KbdOwnProps = GetPropDefTypes<typeof kbdPropDefs>;
 interface KbdProps extends React.ComponentPropsWithoutRef<'kbd'>, MarginProps, KbdOwnProps {}
 const Kbd = React.forwardRef<KbdElement, KbdProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, size = kbdPropDefs.size.default, ...kbdProps } = marginRest;
+  const { className, style, size = kbdPropDefs.size.default, ...kbdProps } = marginRest;
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   return (
     <kbd
       {...kbdProps}
       ref={forwardedRef}
       className={classNames(
         'rt-Kbd',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
-        withMarginProps(marginProps)
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        marginClassNames,
+        className
       )}
+      style={mergeStyles(marginCustomProperties, style)}
     />
   );
 });

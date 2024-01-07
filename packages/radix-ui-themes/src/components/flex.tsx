@@ -6,9 +6,9 @@ import {
   extractLayoutProps,
   extractMarginProps,
   getLayoutStyles,
+  getMarginStyles,
+  getResponsiveClassNames,
   mergeStyles,
-  withBreakpoints,
-  withMarginProps,
 } from '../helpers';
 
 import type { MarginProps, LayoutProps, GetPropDefTypes } from '../helpers';
@@ -25,10 +25,12 @@ interface FlexProps
 const Flex = React.forwardRef<FlexElement, FlexProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
+  const [layoutClassNames, layoutCustomProperties] = getLayoutStyles(layoutProps);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     className,
-    asChild,
     style,
+    asChild,
     display = flexPropDefs.display.default,
     direction = flexPropDefs.direction.default,
     align = flexPropDefs.align.default,
@@ -38,28 +40,32 @@ const Flex = React.forwardRef<FlexElement, FlexProps>((props, forwardedRef) => {
     ...flexProps
   } = layoutRest;
   const Comp = asChild ? Slot : 'div';
-  const [layoutClassNames, layoutCustomProperties] = getLayoutStyles(layoutProps);
   return (
     <Comp
       {...flexProps}
       ref={forwardedRef}
+      // prettier-ignore
       className={classNames(
         'rt-Flex',
-        className,
-        withBreakpoints(display, 'rt-r-display'),
-        withBreakpoints(direction, 'rt-r-fd'),
-        withBreakpoints(align, 'rt-r-ai'),
-        withBreakpoints(justify, 'rt-r-jc', { between: 'space-between' }),
-        withBreakpoints(wrap, 'rt-r-fw'),
-        withBreakpoints(gap, 'rt-r-gap'),
-        withMarginProps(marginProps),
-        layoutClassNames
+        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
+        getResponsiveClassNames({ className: 'rt-r-fd', value: direction }),
+        getResponsiveClassNames({ className: 'rt-r-fw', value: wrap }),
+        getResponsiveClassNames({ className: 'rt-r-gap', value: gap }),
+        getResponsiveClassNames({ className: 'rt-r-ai', value: align }),
+        getResponsiveClassNames({ className: 'rt-r-jc', value: justify, parseValue: parseJustifyValue }),
+        layoutClassNames,
+        marginClassNames,
+        className
       )}
-      style={mergeStyles(layoutCustomProperties, style)}
+      style={mergeStyles(layoutCustomProperties, marginCustomProperties, style)}
     />
   );
 });
 Flex.displayName = 'Flex';
+
+function parseJustifyValue(value: string) {
+  return value === 'between' ? 'space-between' : value;
+}
 
 export { Flex };
 export type { FlexProps };

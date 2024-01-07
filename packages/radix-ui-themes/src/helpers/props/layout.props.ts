@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { withBreakpoints, getResponsiveStyles } from '../breakpoints';
+import { getResponsiveClassNames, getResponsiveStyles } from '../breakpoints';
 import { mergeStyles } from '../merge-styles';
 import { extractPaddingProps, getPaddingStyles, paddingPropDefs } from './padding.props';
 import type { PropDef, GetPropDefTypes } from './prop-def';
@@ -119,7 +119,10 @@ function getLayoutStyles(props: LayoutProps) {
     value: props.height,
   });
 
-  const positionClassNames = withBreakpoints(props.position, 'rt-r-position');
+  const positionClassNames = getResponsiveClassNames({
+    className: 'rt-r-position',
+    value: props.position,
+  });
 
   const [insetClassNames, insetCustomProperties] = getResponsiveStyles({
     className: 'rt-r-inset',

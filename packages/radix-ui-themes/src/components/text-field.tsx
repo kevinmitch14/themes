@@ -6,10 +6,10 @@ import { composeEventHandlers } from '@radix-ui/primitive';
 import { textFieldPropDefs, textFieldSlotPropDefs } from './text-field.props';
 import {
   extractMarginProps,
-  withMarginProps,
   extractPaddingProps,
-  withBreakpoints,
+  getMarginStyles,
   getPaddingStyles,
+  getResponsiveClassNames,
   mergeStyles,
 } from '../helpers';
 
@@ -26,9 +26,11 @@ interface TextFieldRootProps
 const TextFieldRoot = React.forwardRef<TextFieldRootElement, TextFieldRootProps>(
   (props, forwardedRef) => {
     const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+    const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
     const {
       children,
       className,
+      style,
       size = textFieldPropDefs.size.default,
       variant = textFieldPropDefs.variant.default,
       color = textFieldPropDefs.color.default,
@@ -40,7 +42,8 @@ const TextFieldRoot = React.forwardRef<TextFieldRootElement, TextFieldRootProps>
         data-radius={radius}
         {...rootProps}
         ref={forwardedRef}
-        className={classNames('rt-TextFieldRoot', className, withMarginProps(marginProps))}
+        className={classNames('rt-TextFieldRoot', marginClassNames, className)}
+        style={mergeStyles(marginCustomProperties, style)}
         onPointerDown={composeEventHandlers(rootProps.onPointerDown, (event) => {
           const target = event.target as HTMLElement;
           if (target.closest('input, button, a')) return;
@@ -91,10 +94,10 @@ const TextFieldSlot = React.forwardRef<TextFieldSlotElement, TextFieldSlotProps>
         ref={forwardedRef}
         className={classNames(
           'rt-TextFieldSlot',
-          className,
+          getResponsiveClassNames({ className: 'rt-r-size', value: context?.size }),
+          getResponsiveClassNames({ className: 'rt-r-gap', value: gap }),
           paddingClassNames,
-          withBreakpoints(context?.size, 'rt-r-size'),
-          withBreakpoints(gap, 'rt-r-gap')
+          className
         )}
         style={mergeStyles(paddingCustomProperties, style)}
       />
@@ -132,7 +135,7 @@ const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputPro
           className={classNames(
             'rt-TextFieldInput',
             className,
-            withBreakpoints(size, 'rt-r-size'),
+            getResponsiveClassNames({ className: 'rt-r-size', value: size }),
             `rt-variant-${variant}`
           )}
         />

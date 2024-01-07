@@ -4,10 +4,11 @@ import { Slot } from '@radix-ui/react-slot';
 import { baseButtonPropDefs } from './base-button.props';
 import {
   extractMarginProps,
-  withMarginProps,
-  withBreakpoints,
-  mapResponsiveProp,
+  getMarginStyles,
+  getResponsiveClassNames,
   mapButtonSizeToSpinnerSize,
+  mapResponsiveProp,
+  mergeStyles,
 } from '../helpers';
 import { Flex } from './flex';
 import { Spinner } from './spinner';
@@ -28,6 +29,7 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>((props, 
   const {
     className,
     children,
+    style,
     asChild = false,
     size = baseButtonPropDefs.size.default,
     variant = baseButtonPropDefs.variant.default,
@@ -39,6 +41,7 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>((props, 
     ...baseButtonProps
   } = marginRest;
   const Comp = asChild ? Slot : 'button';
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   return (
     <Comp
       // The `data-disabled` attribute enables correct styles when doing `<Button asChild disabled>`
@@ -48,18 +51,19 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>((props, 
       {...baseButtonProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-reset',
         'rt-BaseButton',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
+        'rt-reset',
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
         `rt-variant-${variant}`,
         {
           'rt-high-contrast': highContrast,
           'rt-loading': loading,
         },
-        withMarginProps(marginProps)
+        marginClassNames,
+        className
       )}
       disabled={disabled}
+      style={mergeStyles(marginCustomProperties, style)}
     >
       {loading ? (
         <>

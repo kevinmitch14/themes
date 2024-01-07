@@ -5,9 +5,9 @@ import {
   extractLayoutProps,
   extractMarginProps,
   getLayoutStyles,
+  getMarginStyles,
+  getResponsiveClassNames,
   mergeStyles,
-  withBreakpoints,
-  withMarginProps,
 } from '../helpers';
 
 import type { MarginProps, LayoutProps, GetPropDefTypes } from '../helpers';
@@ -22,6 +22,8 @@ interface SectionProps
 const Section = React.forwardRef<SectionElement, SectionProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
+  const [layoutClassNames, layoutCustomProperties] = getLayoutStyles(layoutProps);
   const {
     className,
     style,
@@ -29,20 +31,19 @@ const Section = React.forwardRef<SectionElement, SectionProps>((props, forwarded
     display = sectionPropDefs.display.default,
     ...sectionProps
   } = layoutRest;
-  const [layoutClassNames, layoutCustomProperties] = getLayoutStyles(layoutProps);
   return (
     <section
       {...sectionProps}
       ref={forwardedRef}
       className={classNames(
         'rt-Section',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
-        withBreakpoints(display, 'rt-r-display'),
-        withMarginProps(marginProps),
-        layoutClassNames
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
+        layoutClassNames,
+        marginClassNames,
+        className
       )}
-      style={mergeStyles(layoutCustomProperties, style)}
+      style={mergeStyles(layoutCustomProperties, marginCustomProperties, style)}
     />
   );
 });

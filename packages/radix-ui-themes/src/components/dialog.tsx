@@ -4,7 +4,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { dialogContentPropDefs } from './dialog.props';
-import { withBreakpoints } from '../helpers';
+import { getResponsiveClassNames } from '../helpers';
 import { Heading } from './heading';
 import { Text } from './text';
 import { Theme } from '../theme';
@@ -49,8 +49,8 @@ const DialogContent = React.forwardRef<DialogContentElement, DialogContentProps>
               ref={forwardedRef}
               className={classNames(
                 'rt-DialogContent',
-                className,
-                withBreakpoints(size, 'rt-r-size')
+                getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+                className
               )}
             />
           </DialogPrimitive.Overlay>

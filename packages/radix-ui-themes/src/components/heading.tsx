@@ -2,7 +2,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { Slot } from '@radix-ui/react-slot';
 import { headingPropDefs } from './heading.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type {
   PropsWithoutRefOrColor,
@@ -22,9 +27,11 @@ type HeadingAsProps = {
 type HeadingProps = CommonHeadingProps & (HeadingAsChildProps | HeadingAsProps);
 const Heading = React.forwardRef<HeadingElement, HeadingProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     children,
     className,
+    style,
     asChild = false,
     as: Tag = 'h1',
     size = headingPropDefs.size.default,
@@ -42,14 +49,15 @@ const Heading = React.forwardRef<HeadingElement, HeadingProps>((props, forwarded
       ref={forwardedRef}
       className={classNames(
         'rt-Heading',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
-        withBreakpoints(weight, 'rt-r-weight'),
-        withBreakpoints(align, 'rt-r-ta'),
-        withBreakpoints(trim, 'rt-r-lt'),
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({ className: 'rt-r-weight', value: weight }),
+        getResponsiveClassNames({ className: 'rt-r-ta', value: align }),
+        getResponsiveClassNames({ className: 'rt-r-lt', value: trim }),
         { 'rt-high-contrast': highContrast },
-        withMarginProps(marginProps)
+        marginClassNames,
+        className
       )}
+      style={mergeStyles(marginCustomProperties, style)}
     >
       {asChild ? children : <Tag>{children}</Tag>}
     </Slot>

@@ -5,9 +5,9 @@ import {
   extractLayoutProps,
   extractMarginProps,
   getLayoutStyles,
+  getMarginStyles,
+  getResponsiveClassNames,
   mergeStyles,
-  withBreakpoints,
-  withMarginProps,
 } from '../helpers';
 
 import type { MarginProps, LayoutProps, GetPropDefTypes } from '../helpers';
@@ -31,19 +31,20 @@ const Container = React.forwardRef<ContainerElement, ContainerProps>((props, for
     ...containerProps
   } = layoutRest;
   const [layoutClassNames, layoutCustomProperties] = getLayoutStyles(layoutProps);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   return (
     <div
       {...containerProps}
       ref={forwardedRef}
       className={classNames(
         'rt-Container',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
-        withBreakpoints(display, 'rt-r-display'),
-        withMarginProps(marginProps),
-        layoutClassNames
+        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        layoutClassNames,
+        marginClassNames,
+        className
       )}
-      style={mergeStyles(layoutCustomProperties, style)}
+      style={mergeStyles(layoutCustomProperties, marginCustomProperties, style)}
     >
       <div className="rt-ContainerInner">{children}</div>
     </div>

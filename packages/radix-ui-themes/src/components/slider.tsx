@@ -4,7 +4,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import { sliderPropDefs } from './slider.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
 
@@ -16,8 +21,10 @@ interface SliderProps
     SliderOwnProps {}
 const Slider = React.forwardRef<SliderElement, SliderProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     className,
+    style,
     size = sliderPropDefs.size.default,
     variant = sliderPropDefs.variant.default,
     color = sliderPropDefs.color.default,
@@ -34,12 +41,13 @@ const Slider = React.forwardRef<SliderElement, SliderProps>((props, forwardedRef
       {...sliderProps}
       className={classNames(
         'rt-SliderRoot',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
-        withMarginProps(marginProps)
+        marginClassNames,
+        className
       )}
+      style={mergeStyles(marginCustomProperties, style)}
     >
       <SliderPrimitive.Track className="rt-SliderTrack">
         <SliderPrimitive.Range

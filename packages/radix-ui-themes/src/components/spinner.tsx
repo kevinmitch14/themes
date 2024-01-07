@@ -2,7 +2,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { Flex } from './flex';
 import { spinnerPropDefs } from './spinner.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 import { VisuallyHidden } from './visually-hidden';
 
 import type { MarginProps, GetPropDefTypes } from '../helpers';
@@ -15,9 +20,11 @@ interface SpinnerProps
     SpinnerOwnProps {}
 const Spinner = React.forwardRef<SpinnerElement, SpinnerProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     className,
     children,
+    style,
     size = spinnerPropDefs.size.default,
     loading = spinnerPropDefs.loading.default,
     ...spinnerProps
@@ -31,10 +38,11 @@ const Spinner = React.forwardRef<SpinnerElement, SpinnerProps>((props, forwarded
       ref={forwardedRef}
       className={classNames(
         'rt-Spinner',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
-        withMarginProps(marginProps)
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        marginClassNames,
+        className
       )}
+      style={mergeStyles(marginCustomProperties, style)}
     >
       <span className="rt-SpinnerLeaf" />
       <span className="rt-SpinnerLeaf" />

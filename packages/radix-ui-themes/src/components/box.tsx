@@ -6,9 +6,9 @@ import {
   extractLayoutProps,
   extractMarginProps,
   getLayoutStyles,
+  getMarginStyles,
+  getResponsiveClassNames,
   mergeStyles,
-  withBreakpoints,
-  withMarginProps,
 } from '../helpers';
 
 import type { MarginProps, LayoutProps, GetPropDefTypes } from '../helpers';
@@ -33,6 +33,7 @@ const Box = React.forwardRef<BoxElement, BoxProps>((props, forwardedRef) => {
     ...boxProps
   } = layoutRest;
   const [layoutClassNames, layoutCustomProperties] = getLayoutStyles(layoutProps);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const Comp = asChild ? Slot : 'div';
   return (
     <Comp
@@ -40,12 +41,12 @@ const Box = React.forwardRef<BoxElement, BoxProps>((props, forwardedRef) => {
       ref={forwardedRef}
       className={classNames(
         'rt-Box',
-        className,
-        withBreakpoints(display, 'rt-r-display'),
-        withMarginProps(marginProps),
-        layoutClassNames
+        getResponsiveClassNames({ className: 'rt-r-display', value: display }),
+        layoutClassNames,
+        marginClassNames,
+        className
       )}
-      style={mergeStyles(layoutCustomProperties, style)}
+      style={mergeStyles(layoutCustomProperties, marginCustomProperties, style)}
     />
   );
 });

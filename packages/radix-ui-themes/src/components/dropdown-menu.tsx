@@ -10,7 +10,7 @@ import {
   dropdownMenuItemPropDefs,
   dropdownMenuCheckboxItemPropDefs,
 } from './dropdown-menu.props';
-import { withBreakpoints } from '../helpers';
+import { getResponsiveClassNames } from '../helpers';
 import { Theme, useThemeContext } from '../theme';
 import { ThickCheckIcon, ThickChevronRightIcon } from '../icons';
 
@@ -69,10 +69,10 @@ const DropdownMenuContent = React.forwardRef<DropdownMenuContentElement, Dropdow
               'rt-PopperContent',
               'rt-BaseMenuContent',
               'rt-DropdownMenuContent',
-              className,
-              withBreakpoints(size, 'rt-r-size'),
+              getResponsiveClassNames({ className: 'rt-r-size', value: size }),
               `rt-variant-${variant}`,
-              { 'rt-high-contrast': highContrast }
+              { 'rt-high-contrast': highContrast },
+              className
             )}
           >
             <ScrollArea type="auto">
@@ -128,7 +128,7 @@ const DropdownMenuItem = React.forwardRef<DropdownMenuItemElement, DropdownMenuI
         data-accent-color={color}
         {...itemProps}
         ref={forwardedRef}
-        className={classNames('rt-reset', 'rt-BaseMenuItem', 'rt-DropdownMenuItem', className)}
+        className={classNames('rt-BaseMenuItem', 'rt-DropdownMenuItem', 'rt-reset', className)}
       >
         <Slottable>{children}</Slottable>
         {shortcut && <div className="rt-BaseMenuShortcut rt-DropdownMenuShortcut">{shortcut}</div>}
@@ -292,10 +292,10 @@ const DropdownMenuSubContent = React.forwardRef<
             'rt-BaseMenuSubContent',
             'rt-DropdownMenuContent',
             'rt-DropdownMenuSubContent',
-            className,
-            withBreakpoints(size, 'rt-r-size'),
+            getResponsiveClassNames({ className: 'rt-r-size', value: size }),
             `rt-variant-${variant}`,
-            { 'rt-high-contrast': highContrast }
+            { 'rt-high-contrast': highContrast },
+            className
           )}
         >
           <ScrollArea type="auto">

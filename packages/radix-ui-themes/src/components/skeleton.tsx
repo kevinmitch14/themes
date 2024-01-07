@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { Slot } from '@radix-ui/react-slot';
 import { skeletonPropDefs } from './skeleton.props';
-import { extractMarginProps, withMarginProps } from '../helpers';
+import { extractMarginProps, getMarginStyles, mergeStyles } from '../helpers';
 
 import type { MarginProps, GetPropDefTypes } from '../helpers';
 
@@ -14,9 +14,11 @@ interface SkeletonProps
     SkeletonOwnProps {}
 const Skeleton = React.forwardRef<SkeletonElement, SkeletonProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     className,
     children,
+    style,
     loading = skeletonPropDefs.loading.default,
     ...skeletonProps
   } = marginRest;
@@ -29,7 +31,8 @@ const Skeleton = React.forwardRef<SkeletonElement, SkeletonProps>((props, forwar
     <Tag
       ref={forwardedRef}
       aria-hidden
-      className={classNames('rt-Skeleton', className, withMarginProps(marginProps))}
+      className={classNames('rt-Skeleton', marginClassNames, className)}
+      style={mergeStyles(marginCustomProperties, style)}
       data-inline-skeleton={React.isValidElement(children) ? undefined : true}
       tabIndex={-1}
       // Workaround to use `inert` until https://github.com/facebook/react/pull/24730 is merged.

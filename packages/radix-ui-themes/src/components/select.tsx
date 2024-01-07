@@ -5,7 +5,12 @@ import classNames from 'classnames';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import { selectRootPropDefs, selectTriggerPropDefs, selectContentPropDefs } from './select.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 import { Theme, useThemeContext } from '../theme';
 import { ThickCheckIcon, ChevronDownIcon } from '../icons';
 
@@ -42,8 +47,10 @@ interface SelectTriggerProps
 const SelectTrigger = React.forwardRef<SelectTriggerElement, SelectTriggerProps>(
   (props, forwardedRef) => {
     const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+    const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
     const {
       className,
+      style,
       variant = selectTriggerPropDefs.variant.default,
       color = selectTriggerPropDefs.color.default,
       radius = selectTriggerPropDefs.radius.default,
@@ -59,13 +66,14 @@ const SelectTrigger = React.forwardRef<SelectTriggerElement, SelectTriggerProps>
           {...triggerProps}
           ref={forwardedRef}
           className={classNames(
-            'rt-reset',
             'rt-SelectTrigger',
-            className,
-            withBreakpoints(size, 'rt-r-size'),
+            'rt-reset',
+            getResponsiveClassNames({ className: 'rt-r-size', value: size }),
             `rt-variant-${variant}`,
-            withMarginProps(marginProps)
+            marginClassNames,
+            className
           )}
+          style={mergeStyles(marginCustomProperties, style)}
         >
           <span className="rt-SelectTriggerInner">
             <SelectPrimitive.Value placeholder={placeholder} />
@@ -112,10 +120,10 @@ const SelectContent = React.forwardRef<SelectContentElement, SelectContentProps>
             className={classNames(
               { 'rt-PopperContent': contentProps.position === 'popper' },
               'rt-SelectContent',
-              className,
-              withBreakpoints(size, 'rt-r-size'),
+              getResponsiveClassNames({ className: 'rt-r-size', value: size }),
               `rt-variant-${variant}`,
-              { 'rt-high-contrast': highContrast }
+              { 'rt-high-contrast': highContrast },
+              className
             )}
           >
             <ScrollAreaPrimitive.Root type="auto" className="rt-ScrollAreaRoot">

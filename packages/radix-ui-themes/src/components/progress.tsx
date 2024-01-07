@@ -4,7 +4,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import { progressPropDefs } from './progress.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
 
@@ -18,6 +23,7 @@ interface ProgressProps
 }
 const Progress = React.forwardRef<ProgressElement, ProgressProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     className,
     style,
@@ -37,19 +43,20 @@ const Progress = React.forwardRef<ProgressElement, ProgressProps>((props, forwar
       ref={forwardedRef}
       className={classNames(
         'rt-ProgressRoot',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
-        withMarginProps(marginProps)
+        marginClassNames,
+        className
       )}
-      style={
+      style={mergeStyles(
         {
           '--progress-duration': 'value' in progressProps ? undefined : duration,
           '--progress-value': 'value' in progressProps ? progressProps.value : undefined,
-          ...style,
-        } as React.CSSProperties
-      }
+        },
+        marginCustomProperties,
+        style
+      )}
       {...progressProps}
     >
       <ProgressPrimitive.Indicator className="rt-ProgressIndicator" />

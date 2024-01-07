@@ -2,7 +2,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { Slot } from '@radix-ui/react-slot';
 import { textPropDefs } from './text.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type {
   PropsWithoutRefOrColor,
@@ -24,9 +29,11 @@ type TextProps = CommonTextProps &
 
 const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     children,
     className,
+    style,
     asChild = false,
     as: Tag = 'span',
     size = textPropDefs.size.default,
@@ -44,14 +51,15 @@ const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
       ref={forwardedRef}
       className={classNames(
         'rt-Text',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
-        withBreakpoints(weight, 'rt-r-weight'),
-        withBreakpoints(align, 'rt-r-ta'),
-        withBreakpoints(trim, 'rt-r-lt'),
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        getResponsiveClassNames({ className: 'rt-r-weight', value: weight }),
+        getResponsiveClassNames({ className: 'rt-r-ta', value: align }),
+        getResponsiveClassNames({ className: 'rt-r-lt', value: trim }),
         { 'rt-high-contrast': highContrast },
-        withMarginProps(marginProps)
+        marginClassNames,
+        className
       )}
+      style={mergeStyles(marginCustomProperties, style)}
     >
       {asChild ? children : <Tag>{children}</Tag>}
     </Slot>

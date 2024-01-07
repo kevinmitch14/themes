@@ -3,14 +3,14 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { Text } from './text';
-import { textPropDefs } from './text.props';
 import { calloutRootPropDefs } from './callout.props';
 import {
   extractMarginProps,
-  withMarginProps,
-  withBreakpoints,
-  mapResponsiveProp,
+  getMarginStyles,
+  getResponsiveClassNames,
   mapCalloutSizeToTextSize,
+  mapResponsiveProp,
+  mergeStyles,
 } from '../helpers';
 
 import type {
@@ -36,24 +36,27 @@ const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
     const {
       children,
       className,
+      style,
       size = calloutRootPropDefs.size.default,
       variant = calloutRootPropDefs.variant.default,
       color = calloutRootPropDefs.color.default,
       highContrast = calloutRootPropDefs.highContrast.default,
       ...rootProps
     } = marginRest;
+    const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
     return (
       <div
         data-accent-color={color}
         {...rootProps}
         className={classNames(
           'rt-CalloutRoot',
-          className,
-          withBreakpoints(size, 'rt-r-size'),
+          getResponsiveClassNames({ className: 'rt-r-size', value: size }),
           `rt-variant-${variant}`,
           { 'rt-high-contrast': highContrast },
-          withMarginProps(marginProps)
+          marginClassNames,
+          className
         )}
+        style={mergeStyles(marginCustomProperties, style)}
         ref={forwardedRef}
       >
         <CalloutContext.Provider

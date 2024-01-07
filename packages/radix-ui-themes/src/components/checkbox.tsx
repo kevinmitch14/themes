@@ -4,7 +4,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { checkboxPropDefs } from './checkbox.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 import { ThickCheckIcon } from '../icons';
 
 import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
@@ -26,21 +31,22 @@ const Checkbox = React.forwardRef<CheckboxElement, CheckboxProps>((props, forwar
     highContrast = checkboxPropDefs.highContrast.default,
     ...checkboxProps
   } = marginRest;
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   return (
     <span
       className={classNames(
         'rt-CheckboxRoot',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
-        withMarginProps(marginProps)
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        marginClassNames,
+        className
       )}
-      style={style}
+      style={mergeStyles(marginCustomProperties, style)}
     >
       <CheckboxPrimitive.Root
         data-accent-color={color}
         {...checkboxProps}
         ref={forwardedRef}
-        className={classNames('rt-reset', 'rt-CheckboxButton', `rt-variant-${variant}`, {
+        className={classNames('rt-CheckboxButton', 'rt-reset', `rt-variant-${variant}`, {
           'rt-high-contrast': highContrast,
         })}
       >

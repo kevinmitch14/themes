@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import { tableRootPropDefs, tableRowPropDefs, tableCellPropDefs } from './table.props';
 import {
   extractMarginProps,
-  withMarginProps,
   extractPaddingProps,
-  withBreakpoints,
+  getMarginStyles,
   getPaddingStyles,
+  getResponsiveClassNames,
   getResponsiveStyles,
   mergeStyles,
 } from '../helpers';
@@ -21,9 +21,11 @@ interface TableRootProps
     TableRootOwnProps {}
 const TableRoot = React.forwardRef<TableRootElement, TableRootProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     className,
     children,
+    style,
     size = tableRootPropDefs.size.default,
     variant = tableRootPropDefs.variant.default,
     ...rootProps
@@ -33,11 +35,12 @@ const TableRoot = React.forwardRef<TableRootElement, TableRootProps>((props, for
       ref={forwardedRef}
       className={classNames(
         'rt-TableRoot',
-        className,
         `rt-variant-${variant}`,
-        withBreakpoints(size, 'rt-r-size'),
-        withMarginProps(marginProps)
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
+        marginClassNames,
+        className
       )}
+      style={mergeStyles(marginCustomProperties, style)}
       {...rootProps}
     >
       <ScrollArea>
@@ -79,20 +82,25 @@ const TableRow = React.forwardRef<TableRowElement, TableRowProps>((props, forwar
     <tr
       {...rowProps}
       ref={forwardedRef}
+      // prettier-ignore
       className={classNames(
         'rt-TableRow',
-        className,
-        withBreakpoints(align, 'rt-r-va', {
-          baseline: 'baseline',
-          start: 'top',
-          center: 'middle',
-          end: 'bottom',
-        })
+        getResponsiveClassNames({ className: 'rt-r-va', value: align, parseValue: parseAlignValue }),
+        className
       )}
     />
   );
 });
 TableRow.displayName = 'TableRow';
+
+function parseAlignValue(value: string) {
+  return {
+    baseline: 'baseline',
+    start: 'top',
+    center: 'middle',
+    end: 'bottom',
+  }[value];
+}
 
 type TableCellImplElement = React.ElementRef<'td'>;
 type TableCellImplOwnProps = GetPropDefTypes<typeof tableCellPropDefs>;
@@ -125,12 +133,13 @@ const TableCellImpl = React.forwardRef<TableCellImplElement, TableCellImplProps>
       <Tag
         {...cellProps}
         ref={forwardedRef}
+        // prettier-ignore
         className={classNames(
           'rt-TableCell',
-          className,
+          getResponsiveClassNames({ className: 'rt-r-va', value: justify, parseValue: parseJustifyValue }),
           widthClassNames,
           paddingClassNames,
-          withBreakpoints(justify, 'rt-r-ta', { start: 'left', center: 'center', end: 'right' })
+          className
         )}
         style={mergeStyles(paddingCustomProperties, widthCustomProperties, style)}
       />
@@ -138,6 +147,14 @@ const TableCellImpl = React.forwardRef<TableCellImplElement, TableCellImplProps>
   }
 );
 TableCellImpl.displayName = 'TableCellImpl';
+
+function parseJustifyValue(value: string) {
+  return {
+    start: 'left',
+    center: 'center',
+    end: 'right',
+  }[value];
+}
 
 type TableCellElement = React.ElementRef<typeof TableCellImpl>;
 interface TableCellProps

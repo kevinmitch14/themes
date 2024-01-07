@@ -4,7 +4,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import { switchPropDefs } from './switch.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
 
@@ -16,6 +21,7 @@ interface SwitchProps
     SwitchOwnProps {}
 const Switch = React.forwardRef<SwitchElement, SwitchProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     className,
     style,
@@ -31,19 +37,19 @@ const Switch = React.forwardRef<SwitchElement, SwitchProps>((props, forwardedRef
       data-radius={radius}
       className={classNames(
         'rt-SwitchRoot',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
-        withMarginProps(marginProps)
+        marginClassNames,
+        className
       )}
-      style={style}
+      style={mergeStyles(marginCustomProperties, style)}
     >
       <SwitchPrimitive.Root
         data-accent-color={color}
         {...switchProps}
         ref={forwardedRef}
-        className={classNames('rt-reset', 'rt-SwitchButton', {
+        className={classNames('rt-SwitchButton', 'rt-reset', {
           'rt-high-contrast': highContrast,
         })}
       >

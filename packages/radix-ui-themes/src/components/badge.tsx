@@ -1,7 +1,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { badgePropDefs } from './badge.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
 
@@ -12,6 +17,7 @@ const Badge = React.forwardRef<BadgeElement, BadgeProps>((props, forwardedRef) =
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
+    style,
     size = badgePropDefs.size.default,
     variant = badgePropDefs.variant.default,
     color = badgePropDefs.color.default,
@@ -19,6 +25,7 @@ const Badge = React.forwardRef<BadgeElement, BadgeProps>((props, forwardedRef) =
     radius = badgePropDefs.radius.default,
     ...badgeProps
   } = marginRest;
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   return (
     <span
       data-accent-color={color}
@@ -27,12 +34,13 @@ const Badge = React.forwardRef<BadgeElement, BadgeProps>((props, forwardedRef) =
       ref={forwardedRef}
       className={classNames(
         'rt-Badge',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
-        withMarginProps(marginProps)
+        marginClassNames,
+        className
       )}
+      style={mergeStyles(marginCustomProperties, style)}
     />
   );
 });

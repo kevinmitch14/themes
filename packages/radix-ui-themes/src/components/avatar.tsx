@@ -4,7 +4,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { avatarPropDefs } from './avatar.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
 
@@ -30,6 +35,7 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>((props, forwardedRef
     fallback,
     ...imageProps
   } = marginRest;
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const [status, setStatus] = React.useState<'idle' | 'loading' | 'loaded' | 'error'>('idle');
   return (
     <AvatarPrimitive.Root
@@ -37,13 +43,13 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>((props, forwardedRef
       data-radius={radius}
       className={classNames(
         'rt-AvatarRoot',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
         `rt-variant-${variant}`,
         { 'rt-high-contrast': highContrast },
-        withMarginProps(marginProps)
+        marginClassNames,
+        className
       )}
-      style={style}
+      style={mergeStyles(marginCustomProperties, style)}
     >
       {status === 'idle' || status === 'loading' ? <span className="rt-AvatarFallback" /> : null}
 

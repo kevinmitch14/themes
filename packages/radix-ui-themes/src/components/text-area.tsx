@@ -1,7 +1,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { textAreaPropDefs } from './text-area.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  getMarginStyles,
+  getResponsiveClassNames,
+  mergeStyles,
+} from '../helpers';
 
 import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
 
@@ -13,6 +18,7 @@ interface TextAreaProps
     TextAreaOwnProps {}
 const TextArea = React.forwardRef<TextAreaElement, TextAreaProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     className,
     size = textAreaPropDefs.size.default,
@@ -24,14 +30,14 @@ const TextArea = React.forwardRef<TextAreaElement, TextAreaProps>((props, forwar
   return (
     <div
       data-accent-color={color}
-      style={style}
       className={classNames(
         'rt-TextAreaRoot',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
+        getResponsiveClassNames({ className: 'rt-r-size', value: size }),
         `rt-variant-${variant}`,
-        withMarginProps(marginProps)
+        marginClassNames,
+        className
       )}
+      style={mergeStyles(marginCustomProperties, style)}
     >
       <textarea className="rt-TextAreaInput" ref={forwardedRef} {...textAreaProps} />
       <div className="rt-TextAreaChrome" />
