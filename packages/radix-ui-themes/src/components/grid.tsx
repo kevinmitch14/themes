@@ -94,6 +94,10 @@ const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
 Grid.displayName = 'Grid';
 
 function parseGridValue(value: string) {
+  if ((gridPropDefs.columns.values as readonly string[]).includes(value)) {
+    return value;
+  }
+
   return value?.match(/^\d+$/) ? `repeat(${value}, minmax(0, 1fr))` : value;
 }
 

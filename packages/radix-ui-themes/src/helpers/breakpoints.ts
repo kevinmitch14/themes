@@ -82,7 +82,7 @@ function getBaseClassName(
   const matchedValue = parseValue(value);
   const isNegative = matchedValue?.startsWith('-');
   const minus = isNegative ? '-' : '';
-  const absoluteValue = isNegative ? value.substring(1) : value;
+  const absoluteValue = isNegative ? matchedValue?.substring(1) : matchedValue;
   return `${minus}${className}${delimiter}${absoluteValue}`;
 }
 
