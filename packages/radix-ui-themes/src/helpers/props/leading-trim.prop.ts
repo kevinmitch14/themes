@@ -7,6 +7,7 @@ const trimProp = {
   values: trimValues,
   default: undefined,
   responsive: true,
+  className: 'rt-r-trim',
 } satisfies PropDef<(typeof trimValues)[number]>;
 
 export { trimProp };

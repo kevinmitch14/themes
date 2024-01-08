@@ -7,6 +7,7 @@ const alignProp = {
   values: alignValues,
   default: undefined,
   responsive: true,
+  className: 'rt-r-align',
 } satisfies PropDef<(typeof alignValues)[number]>;
 
 export { alignProp };

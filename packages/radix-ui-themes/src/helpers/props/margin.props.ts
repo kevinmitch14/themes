@@ -8,13 +8,62 @@ import type { PropDef, GetPropDefTypes } from './prop-def';
 const marginValues = ['auto', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-1', '-2', '-3', '-4', '-5', '-6', '-7', '-8', '-9'] as const;
 
 const marginPropDefs = {
-  m: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
-  mx: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
-  my: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
-  mt: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
-  mr: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
-  mb: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
-  ml: { type: 'enum | string', values: marginValues, default: undefined, responsive: true },
+  m: {
+    type: 'enum | string',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+    className: 'rt-r-m',
+    customProperty: '--margin',
+  },
+  mx: {
+    type: 'enum | string',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+    className: 'rt-r-mx',
+    customProperty: ['--margin-left', '--margin-right'],
+  },
+  my: {
+    type: 'enum | string',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+    className: 'rt-r-my',
+    customProperty: ['--margin-top', '--margin-bottom'],
+  },
+  mt: {
+    type: 'enum | string',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+    className: 'rt-r-mt',
+    customProperty: '--margin-top',
+  },
+  mr: {
+    type: 'enum | string',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+    className: 'rt-r-mr',
+    customProperty: '--margin-right',
+  },
+  mb: {
+    type: 'enum | string',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+    className: 'rt-r-mb',
+    customProperty: '--margin-bottom',
+  },
+  ml: {
+    type: 'enum | string',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+    className: 'rt-r-ml',
+    customProperty: '--margin-left',
+  },
 } satisfies {
   m: PropDef<(typeof marginValues)[number]>;
   mx: PropDef<(typeof marginValues)[number]>;

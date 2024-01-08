@@ -4,8 +4,10 @@ import { Slot } from '@radix-ui/react-slot';
 import { textPropDefs } from './text.props';
 import {
   extractMarginProps,
+  extractProps,
   getMarginStyles,
   getResponsiveClassNames,
+  marginPropDefs,
   mergeStyles,
 } from '../helpers';
 
@@ -28,54 +30,20 @@ type TextProps = CommonTextProps &
   (TextAsChildProps | TextSpanProps | TextDivProps | TextLabelProps | TextPProps);
 
 const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const [marginClassNames, marginCustomProperties] = getMarginStyles(marginProps);
   const {
     children,
     className,
-    style,
     asChild = false,
     as: Tag = 'span',
-    size = textPropDefs.size.default,
-    weight = textPropDefs.weight.default,
-    align = textPropDefs.align.default,
-    trim = textPropDefs.trim.default,
     color = textPropDefs.color.default,
-    highContrast = textPropDefs.highContrast.default,
     ...textProps
-  } = marginRest;
+  } = extractProps(props, textPropDefs, marginPropDefs);
   return (
     <Slot
       data-accent-color={color}
       {...textProps}
       ref={forwardedRef}
-      className={classNames(
-        'rt-Text',
-        getResponsiveClassNames({
-          className: 'rt-r-size',
-          value: size,
-          propValues: textPropDefs.size.values,
-        }),
-        getResponsiveClassNames({
-          className: 'rt-r-weight',
-          value: weight,
-          propValues: textPropDefs.weight.values,
-        }),
-        getResponsiveClassNames({
-          className: 'rt-r-ta',
-          value: align,
-          propValues: textPropDefs.align.values,
-        }),
-        getResponsiveClassNames({
-          className: 'rt-r-lt',
-          value: trim,
-          propValues: textPropDefs.trim.values,
-        }),
-        { 'rt-high-contrast': highContrast },
-        marginClassNames,
-        className
-      )}
-      style={mergeStyles(marginCustomProperties, style)}
+      className={classNames('rt-Text', className)}
     >
       {asChild ? children : <Tag>{children}</Tag>}
     </Slot>

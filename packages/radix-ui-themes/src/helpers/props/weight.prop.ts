@@ -7,6 +7,7 @@ const weightProp = {
   values: weights,
   default: undefined,
   responsive: true,
+  className: 'rt-r-weight',
 } satisfies PropDef<(typeof weights)[number]>;
 
 export { weightProp };

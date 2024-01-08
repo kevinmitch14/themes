@@ -1,3 +1,4 @@
+export * from './extract-props';
 export * from './props';
 export * from './responsive';
 export * from './extract-props-for-tag';
