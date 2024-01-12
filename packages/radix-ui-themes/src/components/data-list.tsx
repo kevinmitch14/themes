@@ -15,19 +15,22 @@ import { DataListRootProps } from './data-list.props';
  */
 
 const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(
-  (
-    { children, gap = '4', direction = 'row', columns = 'minmax(200px, 1fr) 1fr', size = '2' },
-    forwardedRef
-  ) => (
-    <Grid asChild gap={gap} columns={columns}>
+  ({ children, gap = '4', direction = 'row', labelWidth = '200px', size = '2' }, forwardedRef) => (
+    <Grid asChild gap={gap}>
       <Text asChild size={size}>
         <dl
           ref={forwardedRef}
           className={classNames(
-            'DataListRoot',
-            withBreakpoints(gap, 'gap'),
-            withBreakpoints(direction, 'direction')
+            'rt-DataListRoot',
+            withBreakpoints(gap, 'rt-r-gap'),
+            withBreakpoints(direction, 'rt-r-direction')
           )}
+          style={
+            {
+              '--data-list-label-width':
+                typeof labelWidth === 'number' ? `${labelWidth}px` : labelWidth,
+            } as React.CSSProperties
+          }
         >
           {children}
         </dl>
@@ -48,8 +51,8 @@ const DataListItem = React.forwardRef<HTMLDivElement, DataListItemProps>(
       ref={forwardedRef}
       className={classNames(
         className,
-        'DataListItem',
-        withBreakpoints(align, 'va', {
+        'rt-DataListItem',
+        withBreakpoints(align, 'rt-r-va', {
           start: 'top',
           center: 'middle',
           end: 'bottom',
@@ -70,10 +73,9 @@ const DataListLabel = React.forwardRef<HTMLElement, DataListLabelProps>(
   ({ className, style, width, ...props }, forwardedRef) => (
     <dt
       ref={forwardedRef}
-      className={classNames(className, 'DataListLabel')}
+      className={classNames(className, 'rt-DataListLabel')}
       style={
         {
-          '--data-list-label-width': typeof width === 'number' ? `${width}px` : width,
           ...style,
         } as React.CSSProperties
       }
@@ -86,9 +88,9 @@ DataListLabel.displayName = 'DataListLabel';
 
 const DataListData = React.forwardRef<HTMLElement, React.ComponentPropsWithRef<'dd'>>(
   ({ children, className, ...props }, forwardedRef) => (
-    <dd ref={forwardedRef} className={classNames(className, 'DataListData')} {...props}>
-      <span className="DataListDataInner">
-        <span className="DataListDataInnerContents">{children}</span>
+    <dd ref={forwardedRef} className={classNames(className, 'rt-DataListData')} {...props}>
+      <span className="rt-DataListDataInner">
+        <span className="rt-DataListDataInnerContents">{children}</span>
       </span>
     </dd>
   )
