@@ -115,16 +115,16 @@
   box-sizing: border-box;
   display: grid;
   grid-template-columns: subgrid;
+  grid-column: span 2;
 }
 
 @breakpoints {
   .rt-r-direction-column .rt-DataListItem {
-    grid-column: span 2;
-    grid-template-rows: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: var(--space-1);
   }
   .rt-r-direction-row .rt-DataListItem {
-    grid-column: span 2;
     gap: var(--data-list-gap-y);
     padding: 0;
   }
