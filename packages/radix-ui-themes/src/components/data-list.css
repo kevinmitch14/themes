@@ -106,7 +106,7 @@
 :where(.rt-DataListRoot) {
   margin: 0;
   display: grid;
-  grid-template-columns: minmax(200px, max-content) 1fr;
+  grid-template-columns: var(--data-list-columns);
 }
 
 .rt-DataListItem {
@@ -143,10 +143,6 @@
   }
   .rt-r-direction-row .rt-DataListLabel {
     white-space: nowrap;
-    /* width: var(--data-list-label-width);
-    min-width: var(--data-list-label-min-width);
-    max-width: var(--data-list-label-max-width); */
-    flex-shrink: 0;
   }
 }
 
