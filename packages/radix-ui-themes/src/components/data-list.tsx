@@ -13,8 +13,6 @@ import { dataListPropDefs } from './data-list.props';
 
 /**
  * - Trim props
- * - grid / subgrid, decide whether we keep 'direction'
- * - add columns??? to have full control
  * - check align works
  */
 
@@ -27,7 +25,6 @@ const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(
   (props, forwardedRef) => {
     const { rest: marginRest, ...marginProps } = extractMarginProps(props);
     const { children, columns, direction = 'row', gap = '4', gapX, gapY, size = '2' } = marginRest;
-    console.log(columns);
     return (
       <Text asChild size={size}>
         <dl
@@ -41,10 +38,11 @@ const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(
             withMarginProps(marginProps)
           )}
           style={
-            {
-              '--data-list-columns':
-                typeof columns === 'string' ? columns : 'minmax(200px, max-content) 1fr',
-            } as React.CSSProperties
+            typeof columns === 'string'
+              ? ({
+                  '--data-list-columns': columns,
+                } as React.CSSProperties)
+              : {}
           }
         >
           {children}
