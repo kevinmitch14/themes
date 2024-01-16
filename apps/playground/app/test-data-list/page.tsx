@@ -123,7 +123,7 @@ export default function DataListPage() {
                   <DataListLabel>Appearance</DataListLabel>
                   <DataListData>
                     <Flex align="center" gap="1">
-                      <IconButton size="1">
+                      <IconButton size="1" variant="ghost">
                         <InfoCircledIcon />
                       </IconButton>
                       <Text>System</Text>
@@ -210,6 +210,76 @@ export default function DataListPage() {
                 With custom `columns`
               </Heading>
               <DataListRoot columns="100px 1fr">
+                <DataListItem>
+                  <DataListLabel>Name</DataListLabel>
+                  <DataListData>Vlad Moroz</DataListData>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>Email</DataListLabel>
+                  <DataListData>vlad@workos.com</DataListData>
+                </DataListItem>
+              </DataListRoot>
+            </Box>
+
+            <Box mb="6">
+              <Heading mb="5" size="3">
+                With trim start
+              </Heading>
+              <DataListRoot trim="start">
+                <DataListItem>
+                  <DataListLabel>Name</DataListLabel>
+                  <DataListData>Vlad Moroz</DataListData>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>Name</DataListLabel>
+                  <DataListData>Vlad Moroz</DataListData>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>Name</DataListLabel>
+                  <DataListData>Vlad Moroz</DataListData>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>Email</DataListLabel>
+                  <DataListData>vlad@workos.com</DataListData>
+                </DataListItem>
+              </DataListRoot>
+            </Box>
+            <Box mb="6">
+              <Heading mb="5" size="3">
+                With trim end
+              </Heading>
+              <DataListRoot trim="end">
+                <DataListItem>
+                  <DataListLabel>Name</DataListLabel>
+                  <DataListData>Vlad Moroz</DataListData>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>Name</DataListLabel>
+                  <DataListData>Vlad Moroz</DataListData>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>Name</DataListLabel>
+                  <DataListData>Vlad Moroz</DataListData>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>Email</DataListLabel>
+                  <DataListData>vlad@workos.com</DataListData>
+                </DataListItem>
+              </DataListRoot>
+            </Box>
+            <Box mb="6">
+              <Heading mb="5" size="3">
+                With trim both
+              </Heading>
+              <DataListRoot trim="both">
+                <DataListItem>
+                  <DataListLabel>Name</DataListLabel>
+                  <DataListData>Vlad Moroz</DataListData>
+                </DataListItem>
+                <DataListItem>
+                  <DataListLabel>Name</DataListLabel>
+                  <DataListData>Vlad Moroz</DataListData>
+                </DataListItem>
                 <DataListItem>
                   <DataListLabel>Name</DataListLabel>
                   <DataListData>Vlad Moroz</DataListData>
