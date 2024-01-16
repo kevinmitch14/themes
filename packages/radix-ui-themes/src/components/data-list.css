@@ -106,7 +106,8 @@
 :where(.rt-DataListRoot) {
   margin: 0;
   display: grid;
-  grid-template-columns: var(--data-list-columns);
+  /** Value  set via props in component **/
+  grid-template-columns: var(--data-list-columns, minmax(200px, max-content) 1fr);
 }
 
 .rt-DataListItem {
