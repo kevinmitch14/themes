@@ -126,6 +126,7 @@
     /** Use subgrid so all the label columns remain aligned **/
     grid-template-columns: subgrid;
     padding: 0;
+    gap: inherit;
   }
 }
 
