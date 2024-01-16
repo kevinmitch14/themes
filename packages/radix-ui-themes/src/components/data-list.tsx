@@ -11,11 +11,6 @@ import {
 import { Text } from './text';
 import { dataListPropDefs } from './data-list.props';
 
-/**
- * - Trim props
- * - check align works
- */
-
 type DataListRootOwnProps = GetPropDefTypes<typeof dataListPropDefs>;
 interface DataListRootProps
   extends React.ComponentPropsWithoutRef<'dl'>,
@@ -65,7 +60,7 @@ const DataListItem = React.forwardRef<HTMLDivElement, DataListItemProps>(
       className={classNames(
         className,
         'rt-DataListItem',
-        withBreakpoints(align, 'rt-r-va', {
+        withBreakpoints(align, 'rt-r-vaf', {
           start: 'top',
           center: 'middle',
           end: 'bottom',

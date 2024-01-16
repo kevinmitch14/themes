@@ -69,7 +69,7 @@ export default function DataListPage() {
                 <DataListItem align="center">
                   <DataListLabel>Name</DataListLabel>
                   <DataListData>
-                    <Button size="1">Add</Button>
+                    <Button size="2">Add</Button>
                   </DataListData>
                 </DataListItem>
 
@@ -96,7 +96,7 @@ export default function DataListPage() {
                 <DataListItem align="center">
                   <DataListLabel>Authentication methods</DataListLabel>
                   <DataListData>
-                    <Flex gap="2">
+                    <Flex gap="2" align="center" height="100%">
                       <StarIcon />
                       <MagicWandIcon />
                       <StarFilledIcon />

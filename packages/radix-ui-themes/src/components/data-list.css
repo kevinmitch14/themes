@@ -103,7 +103,7 @@
   }
 }
 
-:where(.rt-DataListRoot) {
+.rt-DataListRoot {
   margin: 0;
   display: grid;
   /** Value  set via props in component **/
@@ -128,6 +128,18 @@
     grid-template-columns: subgrid;
     padding: 0;
     gap: inherit;
+  }
+
+  .rt-DataListItem.rt-r-vaf-start {
+    align-items: start;
+  }
+
+  .rt-DataListItem.rt-r-vaf-middle {
+    align-items: center;
+  }
+
+  .rt-DataListItem.rt-r-vaf-end {
+    align-items: end;
   }
 }
 
