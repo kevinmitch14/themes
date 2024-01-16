@@ -113,8 +113,6 @@
 .rt-DataListItem {
   position: relative;
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: subgrid;
   grid-column: span 2;
 }
 
@@ -125,6 +123,9 @@
     gap: var(--space-1);
   }
   .rt-r-direction-row .rt-DataListItem {
+    display: grid;
+    /** Use subgrid so all the label columns remain aligned **/
+    grid-template-columns: subgrid;
     gap: var(--data-list-gap-y);
     padding: 0;
   }
