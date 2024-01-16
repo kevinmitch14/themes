@@ -24,7 +24,16 @@ interface DataListRootProps
 const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(
   (props, forwardedRef) => {
     const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-    const { children, columns, direction = 'row', gap = '4', gapX, gapY, size = '2' } = marginRest;
+    const {
+      children,
+      columns,
+      direction = 'row',
+      gap = '4',
+      gapX,
+      gapY,
+      size = '2',
+      trim = 'normal',
+    } = marginRest;
     return (
       <Text asChild size={size}>
         <dl
@@ -35,6 +44,7 @@ const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(
             withBreakpoints(gapX, 'rt-r-gap-x'),
             withBreakpoints(gapY, 'rt-r-gap-y'),
             withBreakpoints(direction, 'rt-r-direction'),
+            withBreakpoints(trim, 'rt-r-trim'),
             withMarginProps(marginProps)
           )}
           style={

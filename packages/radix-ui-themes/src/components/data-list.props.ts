@@ -11,6 +11,7 @@ export const dataListPropDefs = {
   gapX: { type: 'enum', values: gapValues, default: undefined, responsive: true },
   gapY: { type: 'enum', values: gapValues, default: undefined, responsive: true },
   size: textPropDefs.size,
+  trim: trimProp,
 } satisfies {
   columns?: PropDef<'string'>;
   direction?: PropDef<(typeof directionValues)[number]>;
@@ -18,4 +19,5 @@ export const dataListPropDefs = {
   gapX?: PropDef<(typeof gapValues)[number]>;
   gapY?: PropDef<(typeof gapValues)[number]>;
   size?: typeof textSize;
+  trim?: typeof trimProp;
 };

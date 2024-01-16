@@ -1,114 +1,180 @@
 @breakpoints {
   .rt-DataListRoot.rt-r-gap-0 {
-    row-gap: 0px;
-    column-gap: 0px;
+    --data-list-gap-x: 0px;
+    --data-list-gap-y: 0px;
+
+    row-gap: var(--data-list-gap-x);
+    column-gap: var(--data-list-gap-y);
   }
   .rt-DataListRoot.rt-r-gap-1 {
-    row-gap: var(--space-1);
-    column-gap: var(--space-1);
+    --data-list-gap-x: var(--space-1);
+    --data-list-gap-y: var(--space-1);
   }
   .rt-DataListRoot.rt-r-gap-2 {
-    row-gap: var(--space-2);
-    column-gap: var(--space-2);
+    --data-list-gap-x: var(--space-2);
+    --data-list-gap-y: var(--space-2);
   }
   .rt-DataListRoot.rt-r-gap-3 {
-    row-gap: var(--space-3);
-    column-gap: var(--space-3);
+    --data-list-gap-x: var(--space-3);
+    --data-list-gap-y: var(--space-3);
   }
   .rt-DataListRoot.rt-r-gap-4 {
-    row-gap: var(--space-4);
-    column-gap: var(--space-4);
+    --data-list-gap-x: var(--space-4);
+    --data-list-gap-y: var(--space-4);
   }
   .rt-DataListRoot.rt-r-gap-5 {
-    row-gap: var(--space-5);
-    column-gap: var(--space-5);
+    --data-list-gap-x: var(--space-5);
+    --data-list-gap-y: var(--space-5);
   }
   .rt-DataListRoot.rt-r-gap-6 {
-    row-gap: var(--space-6);
-    column-gap: var(--space-6);
+    --data-list-gap-x: var(--space-6);
+    --data-list-gap-y: var(--space-6);
   }
   .rt-DataListRoot.rt-r-gap-7 {
-    row-gap: var(--space-7);
-    column-gap: var(--space-7);
+    --data-list-gap-x: var(--space-7);
+    --data-list-gap-y: var(--space-7);
   }
   .rt-DataListRoot.rt-r-gap-8 {
-    row-gap: var(--space-8);
-    column-gap: var(--space-8);
+    --data-list-gap-x: var(--space-8);
+    --data-list-gap-y: var(--space-8);
   }
   .rt-DataListRoot.rt-r-gap-9 {
-    row-gap: var(--space-9);
-    column-gap: var(--space-9);
+    --data-list-gap-x: var(--space-9);
+    --data-list-gap-y: var(--space-9);
   }
 
   .rt-DataListRoot.rt-r-gap-x-0 {
-    row-gap: 0px;
+    --data-list-gap-x: 0px;
   }
   .rt-DataListRoot.rt-r-gap-x-1 {
-    row-gap: var(--space-1);
+    --data-list-gap-x: var(--space-1);
   }
   .rt-DataListRoot.rt-r-gap-x-2 {
-    row-gap: var(--space-2);
+    --data-list-gap-x: var(--space-2);
   }
   .rt-DataListRoot.rt-r-gap-x-3 {
-    row-gap: var(--space-3);
+    --data-list-gap-x: var(--space-3);
   }
   .rt-DataListRoot.rt-r-gap-x-4 {
-    row-gap: var(--space-4);
+    --data-list-gap-x: var(--space-4);
   }
   .rt-DataListRoot.rt-r-gap-x-5 {
-    row-gap: var(--space-5);
+    --data-list-gap-x: var(--space-5);
   }
   .rt-DataListRoot.rt-r-gap-x-6 {
-    row-gap: var(--space-6);
+    --data-list-gap-x: var(--space-6);
   }
   .rt-DataListRoot.rt-r-gap-x-7 {
-    row-gap: var(--space-7);
+    --data-list-gap-x: var(--space-7);
   }
   .rt-DataListRoot.rt-r-gap-x-8 {
-    row-gap: var(--space-8);
+    --data-list-gap-x: var(--space-8);
   }
   .rt-DataListRoot.rt-r-gap-x-9 {
-    row-gap: var(--space-9);
+    --data-list-gap-x: var(--space-9);
   }
 
   .rt-DataListRoot.rt-r-gap-y-0 {
-    column-gap: 0px;
+    --data-list-gap-y: 0px;
   }
   .rt-DataListRoot.rt-r-gap-y-1 {
-    column-gap: var(--space-1);
+    --data-list-gap-y: var(--space-1);
   }
   .rt-DataListRoot.rt-r-gap-y-2 {
-    column-gap: var(--space-2);
+    --data-list-gap-y: var(--space-2);
   }
   .rt-DataListRoot.rt-r-gap-y-3 {
-    column-gap: var(--space-3);
+    --data-list-gap-y: var(--space-3);
   }
   .rt-DataListRoot.rt-r-gap-y-4 {
-    column-gap: var(--space-4);
+    --data-list-gap-y: var(--space-4);
   }
   .rt-DataListRoot.rt-r-gap-y-5 {
-    column-gap: var(--space-5);
+    --data-list-gap-y: var(--space-5);
   }
   .rt-DataListRoot.rt-r-gap-y-6 {
-    column-gap: var(--space-6);
+    --data-list-gap-y: var(--space-6);
   }
   .rt-DataListRoot.rt-r-gap-y-7 {
-    column-gap: var(--space-7);
+    --data-list-gap-y: var(--space-7);
   }
   .rt-DataListRoot.rt-r-gap-y-8 {
-    column-gap: var(--space-8);
+    --data-list-gap-y: var(--space-8);
   }
   .rt-DataListRoot.rt-r-gap-y-9 {
-    column-gap: var(--space-9);
+    --data-list-gap-y: var(--space-9);
   }
 }
 
 :where(.rt-DataListRoot) {
+  /* Remove top and bottom item padding */
+  --data-list-trim: calc(var(--data-list-gap-y) / -2);
+  /* Include padding trim when leading trim is used */
+  --leading-trim-start: calc(var(--data-list-trim) + var(--default-leading-trim-start));
+  --leading-trim-end: calc(var(--data-list-trim) + var(--default-leading-trim-end));
   margin: 0;
   display: grid;
   /** Value  set via props in component **/
   grid-template-columns: var(--data-list-columns, minmax(200px, max-content) 1fr);
 }
+
+/**
+* lead - first child
+* end - last child
+* both - both
+*/
+
+:where(.rt-DataListRoot.rt-r-trim-start, .rt-DataListRoot.rt-r-trim-both) > :first-child {
+  /* border: 1px solid green; */
+  margin-bottom: calc(
+    var(--leading-trim-start, var(--default-leading-trim-start)) -
+      var(--line-height, calc(1em * var(--default-line-height))) / 2
+  );
+}
+:where(.rt-DataListRoot.rt-r-trim-end, .rt-DataListRoot.rt-r-trim-both) > :last-child {
+  /* border: 1px solid cornflowerblue; */
+  margin-top: calc(
+    var(--leading-trim-end, var(--default-leading-trim-end)) -
+      var(--line-height, calc(1em * var(--default-line-height))) / 2
+  );
+}
+:where(.rt-DataListRoot.rt-r-trim-normal) > :where(:first-child, :last-child) {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+/* @breakpoints {
+  .rt-r-lt-normal::before,
+  .rt-r-lt-end::before,
+  .rt-r-lt-normal::after,
+  .rt-r-lt-start::after {
+    content: none;
+  }
+
+  .rt-r-lt-start::before,
+  .rt-r-lt-both::before,
+  .rt-r-lt-end::after,
+  .rt-r-lt-both::after {
+    content: '';
+    display: table;
+  }
+
+  .rt-r-lt-start::before,
+  .rt-r-lt-both::before {
+    margin-bottom: calc(
+      var(--leading-trim-start, var(--default-leading-trim-start)) -
+        var(--line-height, calc(1em * var(--default-line-height))) / 2
+    );
+  }
+
+  .rt-r-lt-end::after,
+  .rt-r-lt-both::after {
+    margin-top: calc(
+      var(--leading-trim-end, var(--default-leading-trim-end)) -
+        var(--line-height, calc(1em * var(--default-line-height))) / 2
+    );
+  }
+} */
 
 .rt-DataListItem {
   position: relative;
