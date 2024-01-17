@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import * as React from 'react';
 import {
   Responsive,
-  withBreakpoints,
   MarginProps,
   GetPropDefTypes,
-  extractMarginProps,
-  withMarginProps,
+  extractProps,
+  layoutPropDefs,
+  marginPropDefs,
 } from '../helpers';
 import { Text } from './text';
 import { dataListPropDefs } from './data-list.props';
@@ -18,19 +18,28 @@ interface DataListRootProps
     DataListRootOwnProps {}
 const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(
   (props, forwardedRef) => {
-    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-    const { children, columns, direction = 'row', gap = '4', gapX, gapY, size = '2' } = marginRest;
+    // const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+
+    const { className, ...restProps } = extractProps(
+      props,
+      dataListPropDefs,
+      layoutPropDefs,
+      marginPropDefs
+    );
+    const { children, columns, direction = 'row', gap = '4', gapX, gapY, size = '2' } = restProps;
+
+    console.log({ restProps });
     return (
       <Text asChild size={size}>
         <dl
           ref={forwardedRef}
           className={classNames(
-            'rt-DataListRoot',
-            withBreakpoints(gap, 'rt-r-gap'),
-            withBreakpoints(gapX, 'rt-r-gap-x'),
-            withBreakpoints(gapY, 'rt-r-gap-y'),
-            withBreakpoints(direction, 'rt-r-direction'),
-            withMarginProps(marginProps)
+            'rt-DataListRoot'
+            // withBreakpoints(gap, 'rt-r-gap'),
+            // withBreakpoints(gapX, 'rt-r-gap-x'),
+            // withBreakpoints(gapY, 'rt-r-gap-y'),
+            // withBreakpoints(direction, 'rt-r-direction'),
+            // withMarginProps(marginProps)
           )}
           style={
             typeof columns === 'string'
@@ -59,12 +68,12 @@ const DataListItem = React.forwardRef<HTMLDivElement, DataListItemProps>(
       ref={forwardedRef}
       className={classNames(
         className,
-        'rt-DataListItem',
-        withBreakpoints(align, 'rt-r-vaf', {
-          start: 'top',
-          center: 'middle',
-          end: 'bottom',
-        })
+        'rt-DataListItem'
+        // withBreakpoints(align, 'rt-r-vaf', {
+        //   start: 'top',
+        //   center: 'middle',
+        //   end: 'bottom',
+        // })
       )}
       {...props}
     />
