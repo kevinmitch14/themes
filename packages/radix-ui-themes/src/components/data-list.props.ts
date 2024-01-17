@@ -3,6 +3,7 @@ import { textPropDefs } from './text.props';
 
 const directionValues = ['row', 'column'] as const;
 const gapValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
+const alignValues = ['start', 'center', 'end', 'baseline'] as const;
 
 export const dataListPropDefs = {
   columns: {
@@ -40,4 +41,16 @@ export const dataListPropDefs = {
   gapX?: PropDef<(typeof gapValues)[number]>;
   gapY?: PropDef<(typeof gapValues)[number]>;
   size?: typeof textSize;
+};
+
+export const dataListItemPropDefs = {
+  align: {
+    type: 'enum',
+    className: 'rt-r-vaf',
+    values: alignValues,
+    default: 'baseline',
+    responsive: true,
+  },
+} satisfies {
+  align?: PropDef<(typeof alignValues)[number]>;
 };
