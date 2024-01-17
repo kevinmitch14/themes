@@ -1,13 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  Responsive,
-  MarginProps,
-  GetPropDefTypes,
-  extractProps,
-  layoutPropDefs,
-  marginPropDefs,
-} from '../helpers';
+import { Responsive, MarginProps, GetPropDefTypes, extractProps, marginPropDefs } from '../helpers';
 import { Text } from './text';
 import { dataListPropDefs } from './data-list.props';
 
@@ -20,27 +13,16 @@ const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(
   (props, forwardedRef) => {
     // const { rest: marginRest, ...marginProps } = extractMarginProps(props);
 
-    const { className, ...restProps } = extractProps(
+    const { className, children, columns, ...dataListProps } = extractProps(
       props,
       dataListPropDefs,
-      layoutPropDefs,
       marginPropDefs
     );
-    const { children, columns, direction = 'row', gap = '4', gapX, gapY, size = '2' } = restProps;
-
-    console.log({ restProps });
     return (
-      <Text asChild size={size}>
+      <Text asChild size={props.size || '2'}>
         <dl
           ref={forwardedRef}
-          className={classNames(
-            'rt-DataListRoot'
-            // withBreakpoints(gap, 'rt-r-gap'),
-            // withBreakpoints(gapX, 'rt-r-gap-x'),
-            // withBreakpoints(gapY, 'rt-r-gap-y'),
-            // withBreakpoints(direction, 'rt-r-direction'),
-            // withMarginProps(marginProps)
-          )}
+          className={classNames(className, 'rt-DataListRoot')}
           style={
             typeof columns === 'string'
               ? ({
@@ -48,6 +30,7 @@ const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(
                 } as React.CSSProperties)
               : {}
           }
+          {...dataListProps}
         >
           {children}
         </dl>
